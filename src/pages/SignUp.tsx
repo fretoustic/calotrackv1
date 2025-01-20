@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { Text } from "@chakra-ui/react";
-import { Button } from "../components/button";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -33,17 +31,23 @@ const SignUp = () => {
           marginBottom: "2rem",
         }}
       >
-        <Text textStyle="7xl">CaloTrack</Text>
-        <Text textStyle="3xl">A simplistic calorie tracker.</Text>
+        <h1 style={{ fontSize: "4rem", margin: "0" }}>CaloTrack</h1>
+        <h2 style={{ fontSize: "2rem", margin: "0" }}>A simplistic calorie tracker.</h2>
       </div>
       <div style={{ textAlign: "center", width: "100%" }}>
-        <Button
-          backgroundColor="blue"
-          size="lg"
+        <div
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+            padding: "1rem 2rem",
+            borderRadius: "5px",
+            cursor: "pointer",
+            display: "inline-block",
+          }}
           onClick={() => navigate("/signup2")}
         >
           Sign Up
-        </Button>
+        </div>
       </div>
     </div>
   );

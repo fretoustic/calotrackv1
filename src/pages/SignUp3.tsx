@@ -1,6 +1,3 @@
-import { Button } from "../components/button";
-import { Input, Text } from "@chakra-ui/react";
-
 const SignUp3 = () => {
   return (
     <div
@@ -29,36 +26,55 @@ const SignUp3 = () => {
           maxWidth: "400px",
         }}
       >
-        <Text textStyle="4xl">Some more details for us to help you!</Text>
+        <h2 style={{ fontSize: "2rem", margin: "1rem 0" }}>Some more details for us to help you!</h2>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div style={{ textAlign: "left" }}>
             <label style={{ display: "block", marginBottom: "0.5rem" }}>
               Weight (kg)
             </label>
-            <Input
+            <input
               type="text"
               placeholder="Enter your weight"
-              variant="outline"
-            ></Input>
+              style={{
+                padding: "0.5rem",
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                width: "100%",
+              }}
+            />
           </div>
 
           <div style={{ textAlign: "left" }}>
             <label style={{ display: "block", marginBottom: "0.5rem" }}>
               Height (cm)
             </label>
-            <Input
+            <input
               type="text"
               placeholder="Enter your height"
-              variant="outline"
-            ></Input>
+              style={{
+                padding: "0.5rem",
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                width: "100%",
+              }}
+            />
           </div>
         </div>
       </div>
 
-      <Button backgroundColor="blue" variant="solid">
+      <button
+        style={{
+          backgroundColor: "blue",
+          color: "white",
+          padding: "0.5rem 1rem",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
         All SET!
-      </Button>
+      </button>
     </div>
   );
 };

@@ -2,11 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import SignUp from './pages/SignUp'
 import SignUp2 from './pages/SignUp2'
 import SignUp3 from './pages/SignUp3'
-import { Provider } from './components/provider'
 
 function App() {
   return (
-    <Provider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignUp />} />
@@ -14,7 +12,6 @@ function App() {
           <Route path="/signup3" element={<SignUp3 />} />
         </Routes>
       </BrowserRouter>
-    </Provider>
   )
 }
 

@@ -1,6 +1,4 @@
-import { Button } from "../components/button";
 import { useNavigate } from "react-router-dom";
-import { Input, Text } from "@chakra-ui/react";
 
 const SignUp2 = () => {
   const navigate = useNavigate();
@@ -32,40 +30,60 @@ const SignUp2 = () => {
           maxWidth: "400px",
         }}
       >
-        <Text textStyle="4xl">Let's get to know you!</Text>
+        <div style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem" }}>
+          Let's get to know you!
+        </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div style={{ textAlign: "left" }}>
             <label style={{ display: "block", marginBottom: "0.5rem" }}>
               Name
             </label>
-            <Input
+            <input
               type="text"
               placeholder="Enter your name"
-              variant="outline"
-            ></Input>
+              style={{
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                padding: "0.5rem",
+                width: "100%",
+                boxSizing: "border-box",
+              }}
+            />
           </div>
 
           <div style={{ textAlign: "left" }}>
             <label style={{ display: "block", marginBottom: "0.5rem" }}>
               Email Id
             </label>
-            <Input
+            <input
               type="text"
               placeholder="Enter your email address"
-              variant="outline"
-            ></Input>
+              style={{
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                padding: "0.5rem",
+                width: "100%",
+                boxSizing: "border-box",
+              }}
+            />
           </div>
         </div>
       </div>
 
-      <Button
-        backgroundColor="blue"
-        variant="solid"
+      <div
+        style={{
+          backgroundColor: "blue",
+          color: "white",
+          padding: "0.5rem 1rem",
+          borderRadius: "4px",
+          cursor: "pointer",
+          textAlign: "center",
+        }}
         onClick={() => navigate("/signup3")}
       >
         Next
-      </Button>
+      </div>
     </div>
   );
 };

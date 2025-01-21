@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import SignUp from './pages/SignUp'
-import SignUp2 from './pages/SignUp2'
-import SignUp3 from './pages/SignUp3'
+import SignUp from './SignUp'
+import SignUp2 from './SignUp2'
+import SignUp3 from './SignUp3'
+import HomePage from './homePage'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
           <Route path="/" element={<SignUp />} />
           <Route path="/signup2" element={<SignUp2 />} />
           <Route path="/signup3" element={<SignUp3 />} />
+          <Route path="/homepage" element={<HomePage/>} />
         </Routes>
       </BrowserRouter>
   )

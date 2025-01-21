@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const SignUp3 = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="sign-up3"
@@ -72,6 +75,7 @@ const SignUp3 = () => {
           borderRadius: "4px",
           cursor: "pointer",
         }}
+        onClick={() => navigate("/homepage")}
       >
         All SET!
       </button>

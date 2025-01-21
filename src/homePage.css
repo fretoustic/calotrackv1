@@ -1,0 +1,264 @@
+.home-container {
+  display: grid;
+  grid-template-areas: 'nav' 'main';
+}
+
+.nav-section {
+  grid-area: nav;
+}
+
+.main-section {
+  grid-area: main;
+  padding: 30px;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.cards-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  background-color: #FFF2F2;
+  height: 350px;
+  border-radius: 35px;
+}
+
+.large-card {
+  width: 600px;
+}
+
+.small-card {
+  width: 300px;
+}
+
+.with-padding {
+  padding: 20px;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  font-size: 24px;
+}
+
+.bottom-row {
+  width: 100%;
+  padding-top: 30px;
+}
+
+.setup-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.setup-button:hover {
+  background-color: #0056b3;
+}
+
+.chart-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.water-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.water-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.control-btn {
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.control-btn:hover {
+  background-color: #357abd;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.control-btn:disabled:hover {
+  background-color: inherit;
+}
+
+.amount {
+  font-size: 1.1rem;
+  font-weight: 500;
+  min-width: 60px;
+  text-align: center;
+}
+
+.achievement-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(75, 192, 192, 0.9);
+  color: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeInOut 5s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -20px); }
+  10% { opacity: 1; transform: translate(-50%, 0); }
+  90% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
+}
+
+.calorie-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.calorie-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.calorie-stats button.control-btn {
+  background-color: #ff9933;  /* Orange button color */
+  color: white;
+}
+
+.calorie-stats button.control-btn:hover:not(:disabled) {
+  background-color: #ff8000;  /* Darker orange on hover */
+}
+
+.calorie-stats button.control-btn:disabled {
+  background-color: #ffcc99;  /* Light orange when disabled */
+}
+
+.calorie-dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+}
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.search-section {
+  display: flex;
+  gap: 8px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-btn:disabled {
+  background-color: #ccc;
+}
+
+.food-item {
+  border: 1px solid #eee;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 4px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.add-calorie-btn {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #dc3545;
+}
+
+.search-results {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.calorie-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.add-btn, .manual-btn {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.add-btn:hover, .manual-btn:hover {
+  background-color: #f0f0f0;
+} 

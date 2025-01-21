@@ -5,6 +5,7 @@ import {
   useCustomGoalStore,
   useCustomGoalTargetStore,
   useWaterTargetStore,
+  useUserProfileStore
 } from "../store";
 
 interface DialogBoxProps {
@@ -18,6 +19,8 @@ const DialogBox = ({ type }: DialogBoxProps) => {
   const { setCalorieTarget } = useCalorieTargetStore();
   const { customGoal, setCustomGoal } = useCustomGoalStore();
   const { setCustomGoalTarget } = useCustomGoalTargetStore();
+  const {weightKg,heightCm}= useUserProfileStore();
+
   const handleOpen = () => {
     setIsOpen(true);
   };
@@ -81,6 +84,10 @@ const DialogBox = ({ type }: DialogBoxProps) => {
           <div className="dialog-overlay">
             <div className="dialog-content">
               <h2>Calorie Target</h2>
+              <p>
+                Recommended based on your height and weight :
+                {Math.round((10 * weightKg + 6.25 * heightCm - 5 * 25 + 5) * 1.2)} kcal
+              </p>
               <input
                 type="text"
                 value={inputText}

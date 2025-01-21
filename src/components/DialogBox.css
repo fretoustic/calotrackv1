@@ -1,131 +1,153 @@
+:root {
+  --dialog-bg: white;
+  --dialog-text: black;
+  --dialog-border: #ccc;
+  --dialog-overlay: rgba(0, 0, 0, 0.5);
+  --button-primary-bg: #007bff;
+  --button-primary-text: white;
+  --button-secondary-bg: #6c757d;
+  --button-secondary-text: white;
+  --input-bg: white;
+  --input-border: #ccc;
+}
+
+[data-theme='dark'] {
+  --dialog-bg: #2D3748;
+  --dialog-text: white;
+  --dialog-border: #4A5568;
+  --dialog-overlay: rgba(0, 0, 0, 0.7);
+  --button-primary-bg: #4299E1;
+  --button-primary-text: white;
+  --button-secondary-bg: #718096;
+  --button-secondary-text: white;
+  --input-bg: #1A202C;
+  --input-border: #4A5568;
+  background-color: #1A202C;
+}
+
 .dialog-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--dialog-overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog-content {
+  background-color: var(--dialog-bg);
+  color: var(--dialog-text);
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--dialog-border);
+}
+
+.dialog-content h2 {
+  margin-top: 0;
+  color: var(--dialog-text);
+}
+
+.dialog-content input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--dialog-text);
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dialog-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dialog-buttons button:first-child {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+
+.dialog-buttons button:last-child {
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+}
+
+.setup-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  user-select: none;
+}
+
+.setup-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.setup-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.setup-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+.setup-button:disabled {
+  background-color: var(--button-secondary-bg);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Optional: Add loading state */
+.setup-button.loading {
+  background-color: #4b5563;
+  cursor: wait;
+  position: relative;
+  color: transparent;
+}
+
+.setup-button.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin: -8px 0 0 -8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  .dialog-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    min-width: 300px;
-  }
-  
-  .dialog-content h2 {
-    margin-top: 0;
-  }
-  
-  .dialog-content input {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .dialog-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .dialog-buttons button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .dialog-buttons button:first-child {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .dialog-buttons button:last-child {
-    background-color: #6c757d;
-    color: white;
-  }
-  .setup-button {
-    /* Base styles */
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    border-radius: 8px;
-    background-color: #3b82f6; /* Blue color */
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-    /* Add subtle shadow */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
-    /* Prevent text selection */
-    user-select: none;
-    
-    /* Optional: Add a slight text shadow for better contrast */
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Hover state */
-  .setup-button:hover {
-    background-color: #2563eb; /* Slightly darker blue */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Active/Click state */
-  .setup-button:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Focus state */
-  .setup-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
-  }
-  
-  /* Disabled state */
-  .setup-button:disabled {
-    background-color: #9ca3af;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-    opacity: 0.7;
-  }
-  
-  /* Optional: Add loading state */
-  .setup-button.loading {
-    background-color: #4b5563;
-    cursor: wait;
-    position: relative;
-    color: transparent;
-  }
-  
-  .setup-button.loading::after {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    top: 50%;
-    left: 50%;
-    margin: -8px 0 0 -8px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 0.8s infinite linear;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
+}

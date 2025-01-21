@@ -1,3 +1,13 @@
+:root {
+  --card-bg: #FFF2F2;
+  --text-color: #000000;
+}
+
+[data-theme='dark'] {
+  --card-bg: #2D3748;
+  --text-color: #FFFFFF;
+}
+
 .home-container {
   display: grid;
   grid-template-areas: 'nav' 'main';
@@ -27,9 +37,16 @@
 }
 
 .card {
-  background-color: #FFF2F2;
+  background-color: var(--card-bg);
   height: 350px;
   border-radius: 35px;
+  transition: background-color 0.3s ease;
+}
+
+.card h2,
+.card p,
+.card text {
+  color: var(--text-color);
 }
 
 .large-card {
@@ -179,7 +196,7 @@
 .calorie-dialog {
   border: none;
   border-radius: 8px;
-  padding: 20px;
+  padding: 0px;
   max-width: 500px;
   width: 90%;
 }

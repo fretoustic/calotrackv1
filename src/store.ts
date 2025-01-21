@@ -1,5 +1,35 @@
 import { create } from "zustand";
 
+type UserProfileStore = {
+  name: string;
+  email: string;
+  weightKg: number;
+  heightCm: number;
+  setName: (newName: string) => void;
+  setEmail: (newEmail: string) => void;
+  setWeightKg: (newWeight: number) => void;
+  setHeightCm: (newHeight: number) => void;
+};
+
+export const useUserProfileStore = create<UserProfileStore>((set) => ({
+  name: '',
+  email: '',
+  weightKg: 0,
+  heightCm: 0,
+  setName: (newName: string) => {
+    set(() => ({ name: newName }));
+  },
+  setEmail: (newEmail: string) => {
+    set(() => ({ email: newEmail }));
+  },
+  setWeightKg: (newWeight: number) => {
+    set(() => ({ weightKg: newWeight }));
+  },
+  setHeightCm: (newHeight: number) => {
+    set(() => ({ heightCm: newHeight }));
+  },
+}));
+
 type waterTargetStore = {
   waterTarget: number;
   setWaterTarget: (newWaterTarget: number) => void;  // New action to set a specific waterTarget value
@@ -59,13 +89,17 @@ type calorieConsumedStore = {
 export const useCalorieConsumedStore = create<calorieConsumedStore>((set) => ({
   calorieConsumed: 0,
   setcalorieConsumed: (newcalorieConsumed: number) => {
-    set(() => ({ calorieConsumed: newcalorieConsumed }));
+    set(() => ({ calorieConsumed: Number(newcalorieConsumed.toFixed(1)) }));
   },
   increaseCalorieConsumed: (amount: number) => {
-    set((state) => ({ calorieConsumed: state.calorieConsumed + amount }));
+    set((state) => ({ 
+      calorieConsumed: Number((state.calorieConsumed + amount).toFixed(1)) 
+    }));
   },
   decreaseCalorieConsumed: (amount: number) => {
-    set((state) => ({ calorieConsumed: state.calorieConsumed - amount }));
+    set((state) => ({ 
+      calorieConsumed: Number((state.calorieConsumed - amount).toFixed(1)) 
+    }));
   },
 }));
 
@@ -104,4 +138,52 @@ export const useCustomGoalConsumedStore = create<customGoalConsumed>((set) => ({
   setCustomGoalConsumed: (newCustomGoalConsumed: number) => {
     set(() => ({ customGoalConsumed: newCustomGoalConsumed }));
   },
+}));
+
+type MacronutrientsStore = {
+  protein: number;
+  carbohydrates: number;
+  fats: number;
+  setProtein: (newAmount: number) => void;
+  setCarbohydrates: (newAmount: number) => void;
+  setFats: (newAmount: number) => void;
+  increaseProtein: (amount: number) => void;
+  increaseCarbohydrates: (amount: number) => void;
+  increaseFats: (amount: number) => void;
+};
+
+export const useMacronutrientsStore = create<MacronutrientsStore>((set) => ({
+  protein: 0,
+  carbohydrates: 0,
+  fats: 0,
+  
+  setProtein: (newAmount: number) => {
+    set(() => ({ protein: newAmount }));
+  },
+  setCarbohydrates: (newAmount: number) => {
+    set(() => ({ carbohydrates: newAmount }));
+  },
+  setFats: (newAmount: number) => {
+    set(() => ({ fats: newAmount }));
+  },
+
+  increaseProtein: (amount: number) => {
+    set((state) => ({ protein: state.protein + amount }));
+  },
+  increaseCarbohydrates: (amount: number) => {
+    set((state) => ({ carbohydrates: state.carbohydrates + amount }));
+  },
+  increaseFats: (amount: number) => {
+    set((state) => ({ fats: state.fats + amount }));
+  }
+}));
+
+type ThemeStore = {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+};
+
+export const useThemeStore = create<ThemeStore>((set) => ({
+  isDarkMode: false,
+  toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
 }));

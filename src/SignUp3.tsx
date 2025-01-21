@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import {useUserProfileStore} from "./store";
 
 const SignUp3 = () => {
   const navigate = useNavigate();
+  const {  weightKg, heightCm, setWeightKg, setHeightCm } = useUserProfileStore();
   return (
     <div
       className="sign-up3"
@@ -37,7 +39,7 @@ const SignUp3 = () => {
               Weight (kg)
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="Enter your weight"
               style={{
                 padding: "0.5rem",
@@ -45,6 +47,10 @@ const SignUp3 = () => {
                 borderRadius: "4px",
                 width: "100%",
               }}
+              value={weightKg || ''}
+              onChange={(e) =>
+                setWeightKg(e.target.value === '' ? 0 : parseFloat(e.target.value))
+              }
             />
           </div>
 
@@ -53,7 +59,7 @@ const SignUp3 = () => {
               Height (cm)
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="Enter your height"
               style={{
                 padding: "0.5rem",
@@ -61,6 +67,10 @@ const SignUp3 = () => {
                 borderRadius: "4px",
                 width: "100%",
               }}
+              value={heightCm || ''}
+              onChange={(e) =>
+                setHeightCm(e.target.value === '' ? 0 : parseFloat(e.target.value))
+              }
             />
           </div>
         </div>

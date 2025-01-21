@@ -6,6 +6,7 @@ import {
   useCustomGoalTargetStore,
   useWaterConsumedStore,
   useWaterTargetStore,
+  useMacronutrientsStore
 } from "./store";
 import NavBar from "./components/NavBar";
 import PieChartCard from "./components/Chart";
@@ -15,6 +16,8 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import Confetti from "react-confetti";
 import { useEffect, useState } from "react";
 import { useSearchApi } from "./hooks/useSearchApi";
+import MacronutrientBarChart from "./components/BarChart";
+import { useThemeStore } from "./store";
 
 const HomePage = () => {
   const { waterTarget } = useWaterTargetStore();
@@ -28,6 +31,9 @@ const HomePage = () => {
   const { customGoalTarget, setCustomGoalTarget } = useCustomGoalTargetStore();
   const { customGoalConsumed, setCustomGoalConsumed } =
     useCustomGoalConsumedStore();
+  const { protein, increaseProtein , carbohydrates, increaseCarbohydrates , fats,increaseFats} = useMacronutrientsStore();
+  const { isDarkMode } = useThemeStore();
+
   const handleIncrease = () => {
     if (waterConsumed < waterTarget) {
       increaseConsumed(0.25);
@@ -59,8 +65,15 @@ const HomePage = () => {
     }
   }, [waterConsumed, waterTarget]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
   return (
-    <div className="home-container">
+    <div className="home-container" style={{
+      backgroundColor: isDarkMode ? "#1A202C" : "white",
+      minHeight: "100vh"
+    }}>
       {showConfetti && <Confetti />}
       {showMessage && (
         <div className="achievement-popup">
@@ -68,7 +81,7 @@ const HomePage = () => {
         </div>
       )}
       <div className="nav-section">
-        <NavBar name={"harsh"} />
+        <NavBar />
       </div>
       <div className="main-section">
         <div className="content-wrapper">
@@ -96,7 +109,7 @@ const HomePage = () => {
                           >
                             <FaMinus />
                           </button>
-                          <span className="amount">0.25L</span>
+                          <span className="amount"><p>0.25L</p></span>
                           <button
                             onClick={handleIncrease}
                             className="control-btn"
@@ -180,6 +193,9 @@ const HomePage = () => {
                                               increaseCalorieConsumed(
                                                 item.calories
                                               );
+                                              increaseProtein(item.protein_g);
+                                              increaseCarbohydrates(item.carbohydrates_total_g);
+                                              increaseFats(item.fat_total_g)
                                               setIsCalorieDialogOpen(false);
                                             }}
                                             className="add-btn"
@@ -233,7 +249,16 @@ const HomePage = () => {
                   )}
                 </div>
               </div>
-              <div className="card small-card"></div>
+              <div className="card small-card">
+                <div className="centered-content">
+                  <h2 className="section-title">Macronutrients</h2>
+                  <MacronutrientBarChart 
+                    protein={protein}
+                    carbohydrates={carbohydrates}
+                    fats={fats}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="bottom-row">

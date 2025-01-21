@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import {useUserProfileStore} from "./store";
 
 const SignUp2 = () => {
   const navigate = useNavigate();
+  const { name, email, setName, setEmail } = useUserProfileStore();
+  
 
   return (
     <div
@@ -49,6 +52,10 @@ const SignUp2 = () => {
                 width: "100%",
                 boxSizing: "border-box",
               }}
+              value={name}
+              onChange={(e) =>
+                setName(e.target.value)
+              }
             />
           </div>
 
@@ -66,6 +73,10 @@ const SignUp2 = () => {
                 width: "100%",
                 boxSizing: "border-box",
               }}
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
             />
           </div>
         </div>

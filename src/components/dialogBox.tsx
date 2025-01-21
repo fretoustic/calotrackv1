@@ -118,7 +118,7 @@ const DialogBox = ({ type }: DialogBoxProps) => {
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder="What goal do you want to achieve?(eg: Protien, Body Fat, etc)"
+                placeholder="What goal do you want to achieve? (eg: Protien)"
               />
               <div className="dialog-buttons">
                 <button onClick={handleCustomSubmit}>Save</button>

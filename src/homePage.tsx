@@ -6,7 +6,8 @@ import {
   useCustomGoalTargetStore,
   useWaterConsumedStore,
   useWaterTargetStore,
-  useMacronutrientsStore
+  useMacronutrientsStore,
+  useUserProfileStore
 } from "./store";
 import NavBar from "./components/NavBar";
 import PieChartCard from "./components/Chart";
@@ -33,6 +34,7 @@ const HomePage = () => {
     useCustomGoalConsumedStore();
   const { protein, increaseProtein , carbohydrates, increaseCarbohydrates , fats,increaseFats} = useMacronutrientsStore();
   const { isDarkMode } = useThemeStore();
+  const {weightKg,setWeightKg} = useUserProfileStore();
 
   const handleIncrease = () => {
     if (waterConsumed < waterTarget) {
@@ -263,7 +265,37 @@ const HomePage = () => {
           </div>
           <div className="bottom-row">
             <div className="cards-row">
-              <div className="card small-card"></div>
+              <div className="card small-card">
+              <div className="centered-content">
+                  <h2 className="section-title">Weight Tracker</h2>
+                  <div className="weight-tracker">
+                    <p>Current Weight: {weightKg} kg</p>
+                    <button
+                      style={{
+                        padding: "12px 24px",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                        border: "none",
+                        borderRadius: "8px",
+                        backgroundColor: "var(--button-primary-bg)",
+                        color: "var(--button-primary-text)",
+                        cursor: "pointer",
+                        transition: "all 0.3s ease",
+                        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                        userSelect: "none"
+                      }}
+                      onClick={() => {
+                        const newWeight = prompt("Enter your current weight (kg):");
+                        if (newWeight && !isNaN(Number(newWeight))) {
+                          setWeightKg(Number(newWeight));
+                        }
+                      }}
+                    >
+                      Update Weight
+                    </button>
+                  </div>
+                </div>
+              </div>
               <div className="card large-card">
                 <div className="centered-content">
                   {customGoal === "" ? (

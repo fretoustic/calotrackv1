@@ -8,7 +8,7 @@ import {
   useWaterTargetStore,
   useMacronutrientsStore,
   useUserProfileStore,
-  useWeightStore
+  useWeightStore,
 } from "./store";
 import NavBar from "./components/NavBar";
 import PieChartCard from "./components/Chart";
@@ -20,8 +20,8 @@ import { useEffect, useState } from "react";
 import { useSearchApi } from "./hooks/useSearchApi";
 import MacronutrientBarChart from "./components/BarChart";
 import { useThemeStore } from "./store";
-import WeightChart from './components/WeightChart';
-import DailyMacrosChart from './components/DailyMacrosChart';
+import WeightChart from "./components/WeightChart";
+import DailyMacrosChart from "./components/DailyMacrosChart";
 
 const HomePage = () => {
   const { waterTarget } = useWaterTargetStore();
@@ -45,7 +45,8 @@ const HomePage = () => {
   } = useMacronutrientsStore();
   const { isDarkMode } = useThemeStore();
   const { weightKg, setWeightKg } = useUserProfileStore();
-  const { weights, targetWeight, addWeightEntry, setTargetWeight } = useWeightStore();
+  const { weights, targetWeight, addWeightEntry, setTargetWeight } =
+    useWeightStore();
 
   const handleIncrease = () => {
     if (waterConsumed < waterTarget) {
@@ -408,7 +409,9 @@ const HomePage = () => {
                           marginBottom: "10px",
                         }}
                         onClick={() => {
-                          const target = prompt("Enter your target weight (kg):");
+                          const target = prompt(
+                            "Enter your target weight (kg):"
+                          );
                           if (target && !isNaN(Number(target))) {
                             setTargetWeight(Number(target));
                           }
@@ -418,7 +421,7 @@ const HomePage = () => {
                       </button>
                     )}
                     {weights.length > 0 && (
-                      <div style={{ width: '100%', height: '200px' }}>
+                      <div style={{ width: "100%", height: "200px" }}>
                         <WeightChart weights={weights} />
                       </div>
                     )}
@@ -444,7 +447,7 @@ const HomePage = () => {
                           setWeightKg(Number(newWeight));
                           addWeightEntry({
                             value: Number(newWeight),
-                            timestamp: new Date().toISOString()
+                            timestamp: new Date().toISOString(),
                           });
                         }
                       }}
@@ -505,8 +508,10 @@ const HomePage = () => {
               </div>
               <div className="card large-card">
                 <div className="centered-content">
-                  <h2 className="section-title">Daily Macronutrient Progress</h2>
-                  <DailyMacrosChart 
+                  <h2 className="section-title">
+                    Daily Macronutrient Progress
+                  </h2>
+                  <DailyMacrosChart
                     protein={protein}
                     carbohydrates={carbohydrates}
                     fats={fats}

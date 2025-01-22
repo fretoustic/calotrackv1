@@ -82,7 +82,7 @@ export const useCalorieTargetStore = create<calorieTargetStore>((set) => ({
 type calorieConsumedStore = {
   calorieConsumed: number;
   setcalorieConsumed: (newcalorieConsumed: number) => void;
-  increaseCalorieConsumed: (amount: number) => void;
+  increaseCalorieConsumed: (entry: NutritionEntry) => void;
   decreaseCalorieConsumed: (amount: number) => void;
 };
 
@@ -91,9 +91,9 @@ export const useCalorieConsumedStore = create<calorieConsumedStore>((set) => ({
   setcalorieConsumed: (newcalorieConsumed: number) => {
     set(() => ({ calorieConsumed: Number(newcalorieConsumed.toFixed(1)) }));
   },
-  increaseCalorieConsumed: (amount: number) => {
+  increaseCalorieConsumed: (entry: NutritionEntry) => {
     set((state) => ({ 
-      calorieConsumed: Number((state.calorieConsumed + amount).toFixed(1)) 
+      calorieConsumed: Number((state.calorieConsumed + entry.value).toFixed(1)) 
     }));
   },
   decreaseCalorieConsumed: (amount: number) => {
@@ -140,42 +140,69 @@ export const useCustomGoalConsumedStore = create<customGoalConsumed>((set) => ({
   },
 }));
 
+interface NutritionEntry {
+  value: number;
+  timestamp: string;
+}
+
 type MacronutrientsStore = {
-  protein: number;
-  carbohydrates: number;
-  fats: number;
+  entries: NutritionEntry[];
+  protein: NutritionEntry[];
+  carbohydrates: NutritionEntry[];
+  fats: NutritionEntry[];
   setProtein: (newAmount: number) => void;
   setCarbohydrates: (newAmount: number) => void;
   setFats: (newAmount: number) => void;
-  increaseProtein: (amount: number) => void;
-  increaseCarbohydrates: (amount: number) => void;
-  increaseFats: (amount: number) => void;
+  increaseProtein: (entry: NutritionEntry) => void;
+  increaseCarbohydrates: (entry: NutritionEntry) => void;
+  increaseFats: (entry: NutritionEntry) => void;
 };
 
 export const useMacronutrientsStore = create<MacronutrientsStore>((set) => ({
-  protein: 0,
-  carbohydrates: 0,
-  fats: 0,
+  entries: [] as NutritionEntry[],
+  protein: [] as NutritionEntry[],
+  carbohydrates: [] as NutritionEntry[],
+  fats: [] as NutritionEntry[],
   
   setProtein: (newAmount: number) => {
-    set(() => ({ protein: newAmount }));
+    set(() => ({ 
+      protein: [{
+        value: newAmount,
+        timestamp: new Date().toISOString()
+      }]
+    }));
   },
   setCarbohydrates: (newAmount: number) => {
-    set(() => ({ carbohydrates: newAmount }));
+    set(() => ({ 
+      carbohydrates: [{
+        value: newAmount,
+        timestamp: new Date().toISOString()
+      }]
+    }));
   },
   setFats: (newAmount: number) => {
-    set(() => ({ fats: newAmount }));
+    set(() => ({ 
+      fats: [{
+        value: newAmount,
+        timestamp: new Date().toISOString()
+      }]
+    }));
   },
 
-  increaseProtein: (amount: number) => {
-    set((state) => ({ protein: state.protein + amount }));
-  },
-  increaseCarbohydrates: (amount: number) => {
-    set((state) => ({ carbohydrates: state.carbohydrates + amount }));
-  },
-  increaseFats: (amount: number) => {
-    set((state) => ({ fats: state.fats + amount }));
-  }
+  increaseProtein: (entry: NutritionEntry) =>
+    set((state) => ({
+      protein: [...state.protein, entry]
+    })),
+  
+  increaseCarbohydrates: (entry: NutritionEntry) =>
+    set((state) => ({
+      carbohydrates: [...state.carbohydrates, entry]
+    })),
+  
+  increaseFats: (entry: NutritionEntry) =>
+    set((state) => ({
+      fats: [...state.fats, entry]
+    })),
 }));
 
 type ThemeStore = {
@@ -186,4 +213,30 @@ type ThemeStore = {
 export const useThemeStore = create<ThemeStore>((set) => ({
   isDarkMode: false,
   toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
+}));
+
+interface WeightEntry {
+  value: number;
+  timestamp: string;
+}
+
+type WeightStore = {
+  weights: WeightEntry[];
+  targetWeight: number;
+  setTargetWeight: (newTarget: number) => void;
+  addWeightEntry: (entry: WeightEntry) => void;
+};
+
+export const useWeightStore = create<WeightStore>((set) => ({
+  weights: [] as WeightEntry[],
+  targetWeight: 0,
+  
+  setTargetWeight: (newTarget: number) => {
+    set(() => ({ targetWeight: newTarget }));
+  },
+  
+  addWeightEntry: (entry: WeightEntry) =>
+    set((state) => ({
+      weights: [...state.weights, entry]
+    })),
 }));

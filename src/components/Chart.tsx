@@ -11,7 +11,7 @@ interface Props {
 
 const PieChartCard = ({ target, consumed, unit }: Props) => {
   const isComplete = consumed >= target;
-  const remainingAmount = Math.max(target - consumed, 0);
+  const remainingAmount = Math.max(target - consumed, 0).toFixed(2);
 
   const chartData = {
     labels: ["Consumed", "Remaining"],

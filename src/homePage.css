@@ -1,11 +1,19 @@
 :root {
-  --card-bg: #FFF2F2;
-  --text-color: #000000;
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --card-bg: #fefafa;
+  --card-bg-dark: #2D3748;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-radius: 24px;
+  --shadow: 0 8px 16px -2px rgba(99, 102, 241, 0.08), 0 4px 8px -2px rgba(99, 102, 241, 0.06);
+  --gradient: linear-gradient(135deg, #6366f1, #4f46e5);
 }
 
 [data-theme='dark'] {
   --card-bg: #2D3748;
-  --text-color: #FFFFFF;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
 }
 
 .home-container {
@@ -37,16 +45,24 @@
 }
 
 .card {
-  background-color: var(--card-bg);
-  height: 350px;
-  border-radius: 35px;
-  transition: background-color 0.3s ease;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(99, 102, 241, 0.08);
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.1), 0 10px 10px -5px rgba(99, 102, 241, 0.04);
 }
 
 .card h2,
 .card p,
 .card text {
-  color: var(--text-color);
+  color: var(--text-primary);
 }
 
 .large-card {
@@ -68,7 +84,15 @@
 }
 
 .section-title {
-  font-size: 24px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: -0.025em;
 }
 
 .bottom-row {
@@ -104,64 +128,69 @@
 .water-controls {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.25rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(99, 102, 241, 0.04);
+  border-radius: 16px;
 }
 
 .control-btn {
-  background-color: #4a90e2;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  background: var(--gradient);
   color: white;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  font-size: 1.125rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.control-btn:hover {
-  background-color: #357abd;
+.control-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.3);
 }
 
 .control-btn:disabled {
-  opacity: 0.5;
+  background: var(--text-secondary);
   cursor: not-allowed;
-}
-
-.control-btn:disabled:hover {
-  background-color: inherit;
+  opacity: 0.5;
 }
 
 .amount {
-  font-size: 1.1rem;
-  font-weight: 500;
-  min-width: 60px;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 70px;
   text-align: center;
+  font-size: 1.125rem;
 }
 
 .achievement-popup {
   position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(75, 192, 192, 0.9);
+  top: 24px;
+  right: 24px;
+  padding: 1.25rem 1.75rem;
+  background: var(--gradient);
   color: white;
-  padding: 20px 40px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: bold;
+  border-radius: 16px;
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  animation: fadeInOut 5s ease-in-out;
+  box-shadow: 0 12px 24px -6px rgba(99, 102, 241, 0.25);
 }
 
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translate(-50%, -20px); }
-  10% { opacity: 1; transform: translate(-50%, 0); }
-  90% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, -20px); }
+@keyframes slideIn {
+  from {
+    transform: translateX(100%) translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+  }
 }
 
 .calorie-stats {
@@ -176,8 +205,12 @@
 .calorie-controls {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-top: 10px;
+  gap: 1.25rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(99, 102, 241, 0.04);
+  border-radius: 16px;
 }
 
 .calorie-stats button.control-btn {
@@ -194,17 +227,24 @@
 }
 
 .calorie-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: var(--border-radius);
   border: none;
-  border-radius: 8px;
-  padding: 0px;
-  max-width: 500px;
+  background: var(--card-bg);
+  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+  padding: 2rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 1000;
   width: 90%;
+  max-width: 550px;
 }
 
 .dialog-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  max-width: 100%;
 }
 
 .search-section {
@@ -213,10 +253,19 @@
 }
 
 .search-input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 2px solid rgba(99, 102, 241, 0.1);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: rgba(99, 102, 241, 0.02);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .search-btn {
@@ -233,49 +282,169 @@
 }
 
 .food-item {
-  border: 1px solid #eee;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 4px;
+  padding: 1.25rem;
+  border-radius: 16px;
+  background: rgba(99, 102, 241, 0.04);
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.food-item:hover {
+  background: rgba(99, 102, 241, 0.08);
 }
 
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-.add-calorie-btn {
-  padding: 8px 16px;
-  background-color: #28a745;
-  color: white;
+.add-calorie-btn, .manual-btn {
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
   border: none;
-  border-radius: 4px;
+  background: var(--gradient);
+  color: white;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.975rem;
+  letter-spacing: 0.025em;
 }
 
-.error-message {
-  color: #dc3545;
+.add-calorie-btn:hover, .manual-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.3);
+}
+
+.modern-button {
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  border: none;
+  background: var(--gradient);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.975rem;
+  letter-spacing: 0.025em;
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.3);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem;
+  background: rgba(99, 102, 241, 0.04);
+  border-radius: 12px;
+}
+
+.stat-value {
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 1.125rem;
+}
+
+.stat-prompt {
+  text-align: center;
+  color: var(--text-secondary);
+  margin: 1.25rem 0;
+  font-size: 0.975rem;
+}
+
+/* Add glass morphism effect for cards in dark mode */
+[data-theme='dark'] .card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+}
+
+/* Scrollbar styling */
+.search-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.search-results::-webkit-scrollbar-track {
+  background: rgba(99, 102, 241, 0.04);
+  border-radius: 4px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
 }
 
 .search-results {
-  max-height: 300px;
+  max-height: 50vh;
   overflow-y: auto;
+  margin: 1rem 0;
 }
 
-.calorie-actions {
+/* Ensure dialog backdrop covers everything */
+.calorie-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Add overflow only for content inside the card, not dialogs */
+.card-content {
+  overflow: hidden;
+}
+
+/* Animation for dialog opening */
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.calorie-dialog[open] {
+  animation: dialogSlideIn 0.3s ease-out;
+}
+
+.weight-tracker {
   display: flex;
-  gap: 10px;
-  margin-top: 8px;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
 }
 
-.add-btn, .manual-btn {
-  padding: 5px 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+.weight-tracker p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.weight-tracker button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.add-btn:hover, .manual-btn:hover {
-  background-color: #f0f0f0;
+.weight-tracker button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 } 

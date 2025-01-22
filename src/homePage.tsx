@@ -90,7 +90,7 @@ const HomePage = () => {
     <div
       className="home-container"
       style={{
-        backgroundColor: isDarkMode ? "#1A202C" : "white",
+        backgroundColor: isDarkMode ? "#1A202C" : "#f8fafc",
         minHeight: "100vh",
       }}
     >
@@ -100,6 +100,162 @@ const HomePage = () => {
           You are one step closer to a better self!
         </div>
       )}
+
+      {isCalorieDialogOpen && (
+        <dialog open className="calorie-dialog">
+          <div className="dialog-content">
+            <h3>Add Calorie Intake</h3>
+            <div className="search-section">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="What did you eat?"
+                className="search-input"
+              />
+              <button
+                onClick={handleSearch}
+                disabled={isLoading}
+                className="search-btn"
+              >
+                Search
+              </button>
+            </div>
+
+            {isLoading && <p>Searching...</p>}
+            {error && <p className="error-message">{error}</p>}
+
+            {data && data.items ? (
+              <div className="search-results">
+                <h4>Results:</h4>
+                {data.items.map((item: any, index: number) => (
+                  <div key={index} className="food-item">
+                    <p>{item.name}</p>
+                    <p>Calories: {item.calories}</p>
+                    <p>Serving size: {item.serving_size_g}g</p>
+                    <div className="calorie-actions">
+                      <button
+                        onClick={() => {
+                          const timestamp = new Date().toISOString();
+                          increaseCalorieConsumed({
+                            value: item.calories,
+                            timestamp: timestamp,
+                          });
+                          increaseProtein({
+                            value: item.protein_g,
+                            timestamp: timestamp,
+                          });
+                          increaseCarbohydrates({
+                            value: item.carbohydrates_total_g,
+                            timestamp: timestamp,
+                          });
+                          increaseFats({
+                            value: item.fat_total_g,
+                            timestamp: timestamp,
+                          });
+                          setIsCalorieDialogOpen(false);
+                        }}
+                        className="add-btn"
+                      >
+                        Add this?
+                      </button>
+                      <button
+                        onClick={() => {
+                          const calories = prompt("Enter calories manually:");
+                          if (calories && !isNaN(Number(calories))) {
+                            const protein = prompt("Enter protein (g):");
+                            const carbs = prompt("Enter carbohydrates (g):");
+                            const fats = prompt("Enter fats (g):");
+                            const timestamp = new Date().toISOString();
+
+                            increaseCalorieConsumed({
+                              value: Number(calories),
+                              timestamp: timestamp,
+                            });
+                            if (protein && !isNaN(Number(protein))) {
+                              increaseProtein({
+                                value: Number(protein),
+                                timestamp: timestamp,
+                              });
+                            }
+                            if (carbs && !isNaN(Number(carbs))) {
+                              increaseCarbohydrates({
+                                value: Number(carbs),
+                                timestamp: timestamp,
+                              });
+                            }
+                            if (fats && !isNaN(Number(fats))) {
+                              increaseFats({
+                                value: Number(fats),
+                                timestamp: timestamp,
+                              });
+                            }
+                            setIsCalorieDialogOpen(false);
+                          }
+                        }}
+                        className="add-btn"
+                      >
+                        Add Entry Manually
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="no-results">
+                <p>No results found.</p>
+                <button
+                  onClick={() => {
+                    const calories = prompt("Enter calories manually:");
+                    if (calories && !isNaN(Number(calories))) {
+                      const protein = prompt("Enter protein (g):");
+                      const carbs = prompt("Enter carbohydrates (g):");
+                      const fats = prompt("Enter fats (g):");
+
+                      increaseCalorieConsumed({
+                        value: Number(calories),
+                        timestamp: new Date().toISOString(),
+                      });
+                      if (protein && !isNaN(Number(protein))) {
+                        increaseProtein({
+                          value: Number(protein),
+                          timestamp: new Date().toISOString(),
+                        });
+                      }
+                      if (carbs && !isNaN(Number(carbs))) {
+                        increaseCarbohydrates({
+                          value: Number(carbs),
+                          timestamp: new Date().toISOString(),
+                        });
+                      }
+                      if (fats && !isNaN(Number(fats))) {
+                        increaseFats({
+                          value: Number(fats),
+                          timestamp: new Date().toISOString(),
+                        });
+                      }
+                      setIsCalorieDialogOpen(false);
+                    }
+                  }}
+                  className="manual-btn"
+                >
+                  Add Entry Manually
+                </button>
+              </div>
+            )}
+
+            <div className="dialog-actions">
+              <button
+                className="modern-button"
+                onClick={() => setIsCalorieDialogOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </dialog>
+      )}
+
       <div className="nav-section">
         <NavBar />
       </div>
@@ -107,9 +263,9 @@ const HomePage = () => {
         <div className="content-wrapper">
           <div className="full-width">
             <div className="cards-row">
-              <div className="card large-card ">
+              <div className="card large-card">
                 <div className="centered-content">
-                  <h2 className="section-title">Water levels</h2>
+                  <h2 className="section-title">Water Levels</h2>
                   {waterTarget !== 0 ? (
                     <div className="chart-container">
                       <PieChartCard
@@ -118,9 +274,23 @@ const HomePage = () => {
                         unit="L"
                       />
                       <div className="water-stats">
-                        <p>Target: {waterTarget} Litres</p>
-                        <p>Consumed: {waterConsumed} Litres</p>
-                        <p>Consumed some water? Let us know how much!</p>
+                        <div className="stat-row">
+                          <p>
+                            Target:{" "}
+                            <span className="stat-value">
+                              {waterTarget} Litres
+                            </span>
+                          </p>
+                          <p>
+                            Consumed:{" "}
+                            <span className="stat-value">
+                              {waterConsumed} Litres
+                            </span>
+                          </p>
+                        </div>
+                        <p className="stat-prompt">
+                          Consumed some water? Let us know how much!
+                        </p>
                         <div className="water-controls">
                           <button
                             onClick={handleDecrease}
@@ -129,9 +299,7 @@ const HomePage = () => {
                           >
                             <FaMinus />
                           </button>
-                          <span className="amount">
-                            <p>0.25L</p>
-                          </span>
+                          <span className="amount">0.25L</span>
                           <button
                             onClick={handleIncrease}
                             className="control-btn"
@@ -150,7 +318,7 @@ const HomePage = () => {
                   )}
                 </div>
               </div>
-              <div className="card large-card ">
+              <div className="card large-card">
                 <div className="centered-content">
                   <h2 className="section-title">Calorie intake</h2>
                   {calorieTarget !== 0 ? (
@@ -169,201 +337,6 @@ const HomePage = () => {
                         >
                           Add Calorie Intake
                         </button>
-
-                        {isCalorieDialogOpen && (
-                          <dialog open className="calorie-dialog">
-                            <div className="dialog-content">
-                              <h3>Add Calorie Intake</h3>
-                              <div className="search-section">
-                                <input
-                                  type="text"
-                                  value={searchTerm}
-                                  onChange={(e) =>
-                                    setSearchTerm(e.target.value)
-                                  }
-                                  placeholder="What did you eat?"
-                                  className="search-input"
-                                />
-                                <button
-                                  onClick={handleSearch}
-                                  disabled={isLoading}
-                                  className="search-btn"
-                                >
-                                  Search
-                                </button>
-                              </div>
-
-                              {isLoading && <p>Searching...</p>}
-                              {error && (
-                                <p className="error-message">{error}</p>
-                              )}
-
-                              {data && data.items ? (
-                                <div className="search-results">
-                                  <h4>Results:</h4>
-                                  {data.items.map(
-                                    (item: any, index: number) => (
-                                      <div key={index} className="food-item">
-                                        <p>{item.name}</p>
-                                        <p>Calories: {item.calories}</p>
-                                        <p>
-                                          Serving size: {item.serving_size_g}g
-                                        </p>
-                                        <div className="calorie-actions">
-                                          <button
-                                            onClick={() => {
-                                              const timestamp =
-                                                new Date().toISOString();
-                                              increaseCalorieConsumed({
-                                                value: item.calories,
-                                                timestamp: timestamp,
-                                              });
-                                              increaseProtein({
-                                                value: item.protein_g,
-                                                timestamp: timestamp,
-                                              });
-                                              increaseCarbohydrates({
-                                                value:
-                                                  item.carbohydrates_total_g,
-                                                timestamp: timestamp,
-                                              });
-                                              increaseFats({
-                                                value: item.fat_total_g,
-                                                timestamp: timestamp,
-                                              });
-                                              setIsCalorieDialogOpen(false);
-                                            }}
-                                            className="add-btn"
-                                          >
-                                            Add this?
-                                          </button>
-                                          <button
-                                            onClick={() => {
-                                              const calories = prompt(
-                                                "Enter calories manually:"
-                                              );
-                                              if (
-                                                calories &&
-                                                !isNaN(Number(calories))
-                                              ) {
-                                                const protein =
-                                                  prompt("Enter protein (g):");
-                                                const carbs = prompt(
-                                                  "Enter carbohydrates (g):"
-                                                );
-                                                const fats =
-                                                  prompt("Enter fats (g):");
-                                                const timestamp =
-                                                  new Date().toISOString();
-
-                                                increaseCalorieConsumed({
-                                                  value: Number(calories),
-                                                  timestamp: timestamp,
-                                                });
-                                                if (
-                                                  protein &&
-                                                  !isNaN(Number(protein))
-                                                ) {
-                                                  increaseProtein({
-                                                    value: Number(protein),
-                                                    timestamp: timestamp,
-                                                  });
-                                                }
-                                                if (
-                                                  carbs &&
-                                                  !isNaN(Number(carbs))
-                                                ) {
-                                                  increaseCarbohydrates({
-                                                    value: Number(carbs),
-                                                    timestamp: timestamp,
-                                                  });
-                                                }
-                                                if (
-                                                  fats &&
-                                                  !isNaN(Number(fats))
-                                                ) {
-                                                  increaseFats({
-                                                    value: Number(fats),
-                                                    timestamp: timestamp,
-                                                  });
-                                                }
-                                                setIsCalorieDialogOpen(false);
-                                              }
-                                            }}
-                                            className="add-btn"
-                                          >
-                                            Add Entry Manually
-                                          </button>
-                                        </div>
-                                      </div>
-                                    )
-                                  )}
-                                </div>
-                              ) : (
-                                <div className="no-results">
-                                  <p>No results found.</p>
-                                  <button
-                                    onClick={() => {
-                                      const calories = prompt(
-                                        "Enter calories manually:"
-                                      );
-                                      if (
-                                        calories &&
-                                        !isNaN(Number(calories))
-                                      ) {
-                                        const protein =
-                                          prompt("Enter protein (g):");
-                                        const carbs = prompt(
-                                          "Enter carbohydrates (g):"
-                                        );
-                                        const fats = prompt("Enter fats (g):");
-
-                                        increaseCalorieConsumed({
-                                          value: Number(calories),
-                                          timestamp: new Date().toISOString(),
-                                        });
-                                        if (
-                                          protein &&
-                                          !isNaN(Number(protein))
-                                        ) {
-                                          increaseProtein({
-                                            value: Number(protein),
-                                            timestamp: new Date().toISOString(),
-                                          });
-                                        }
-                                        if (carbs && !isNaN(Number(carbs))) {
-                                          increaseCarbohydrates({
-                                            value: Number(carbs),
-                                            timestamp: new Date().toISOString(),
-                                          });
-                                        }
-                                        if (fats && !isNaN(Number(fats))) {
-                                          increaseFats({
-                                            value: Number(fats),
-                                            timestamp: new Date().toISOString(),
-                                          });
-                                        }
-                                        setIsCalorieDialogOpen(false);
-                                      }
-                                    }}
-                                    className="manual-btn"
-                                  >
-                                    Add Entry Manually
-                                  </button>
-                                </div>
-                              )}
-
-                              <div className="dialog-actions">
-                                <button
-                                  onClick={() => setIsCalorieDialogOpen(false)}
-                                  className="close-btn"
-                                >
-                                  Close
-                                </button>
-                              </div>
-                            </div>
-                          </dialog>
-                        )}
                       </div>
                     </div>
                   ) : (

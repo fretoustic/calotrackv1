@@ -18,23 +18,47 @@ const NavBar = () => {
       borderBottomLeftRadius="30px"
       borderBottomRightRadius="30px"
       width={"100%"}
-      height={"70px"}
+      height={"90px"}
+      boxShadow="0 2px 10px rgba(0,0,0,0.1)"
     >
-      <Flex justifyContent="space-between" alignItems="center" padding={"15px"}>
-        <Text 
-          fontSize={"25px"}
-          color={isDarkMode ? "white" : "black"}
-        >
-          {name ? `Welcome Back, ${name}!` : 'Welcome!'}
-        </Text>
-        <Flex gap={4} alignItems="center" justifyContent="center">
+      <Flex 
+        justifyContent="space-between" 
+        alignItems="center" 
+        padding={"15px"}
+        height="100%"
+      >
+        <Flex gap={4} alignItems="center" flex="1">
+          <Text 
+            fontSize={"25px"}
+            color={isDarkMode ? "white" : "black"}
+            fontWeight="medium"
+            transition="color 0.2s ease"
+          >
+            {name ? `Welcome Back, ${name}!` : 'Welcome!'}
+          </Text>
+        </Flex>
+        <Center flex="1">
+          <Text
+            fontSize={"35px"}
+            fontWeight="bold"
+            fontFamily='"Itim", serif'
+            fontStyle="normal"
+            color={isDarkMode ? "white" : "black"}
+            letterSpacing="wide"
+            transition="color 0.2s ease"
+          >
+            CaloTrack
+          </Text>
+        </Center>
+        <Flex gap={4} alignItems="center" justifyContent="flex-end" flex="1">
           <Text 
             fontSize={"18px"}
             color={isDarkMode ? "white" : "black"}
+            fontWeight="medium"
+            transition="color 0.2s ease"
           >
             {calculateBMI() ? `Your current BMI: ${calculateBMI()}` : ''}
           </Text>
-          <br></br>
           <IconButton 
             aria-label="Toggle dark mode"
             icon={isDarkMode ? <FaSun /> : <FaMoon />}

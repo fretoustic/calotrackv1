@@ -214,3 +214,29 @@ export const useThemeStore = create<ThemeStore>((set) => ({
   isDarkMode: false,
   toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
 }));
+
+interface WeightEntry {
+  value: number;
+  timestamp: string;
+}
+
+type WeightStore = {
+  weights: WeightEntry[];
+  targetWeight: number;
+  setTargetWeight: (newTarget: number) => void;
+  addWeightEntry: (entry: WeightEntry) => void;
+};
+
+export const useWeightStore = create<WeightStore>((set) => ({
+  weights: [] as WeightEntry[],
+  targetWeight: 0,
+  
+  setTargetWeight: (newTarget: number) => {
+    set(() => ({ targetWeight: newTarget }));
+  },
+  
+  addWeightEntry: (entry: WeightEntry) =>
+    set((state) => ({
+      weights: [...state.weights, entry]
+    })),
+}));

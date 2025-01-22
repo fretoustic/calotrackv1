@@ -21,6 +21,7 @@ import { useSearchApi } from "./hooks/useSearchApi";
 import MacronutrientBarChart from "./components/BarChart";
 import { useThemeStore } from "./store";
 import WeightChart from './components/WeightChart';
+import DailyMacrosChart from './components/DailyMacrosChart';
 
 const HomePage = () => {
   const { waterTarget } = useWaterTargetStore();
@@ -502,7 +503,16 @@ const HomePage = () => {
                   )}
                 </div>
               </div>
-              <div className="card large-card"></div>
+              <div className="card large-card">
+                <div className="centered-content">
+                  <h2 className="section-title">Daily Macronutrient Progress</h2>
+                  <DailyMacrosChart 
+                    protein={protein}
+                    carbohydrates={carbohydrates}
+                    fats={fats}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

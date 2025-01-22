@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import {useUserProfileStore} from "./store";
+import {useUserProfileStore,useWeightStore} from "./store";
 
 const SignUp3 = () => {
   const navigate = useNavigate();
   const {  weightKg, heightCm, setWeightKg, setHeightCm } = useUserProfileStore();
+  const {addWeightEntry} = useWeightStore();
   return (
     <div
       className="sign-up3"
@@ -85,7 +86,13 @@ const SignUp3 = () => {
           borderRadius: "4px",
           cursor: "pointer",
         }}
-        onClick={() => navigate("/homepage")}
+        onClick={() => {
+          addWeightEntry({
+            value: weightKg,
+            timestamp: new Date().toISOString()
+          });
+          navigate("/homepage");
+        }}
       >
         All SET!
       </button>

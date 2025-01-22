@@ -8,6 +8,7 @@ import {
   useWaterTargetStore,
   useMacronutrientsStore,
   useUserProfileStore,
+  useWeightStore
 } from "./store";
 import NavBar from "./components/NavBar";
 import PieChartCard from "./components/Chart";
@@ -19,6 +20,7 @@ import { useEffect, useState } from "react";
 import { useSearchApi } from "./hooks/useSearchApi";
 import MacronutrientBarChart from "./components/BarChart";
 import { useThemeStore } from "./store";
+import WeightChart from './components/WeightChart';
 
 const HomePage = () => {
   const { waterTarget } = useWaterTargetStore();
@@ -42,6 +44,7 @@ const HomePage = () => {
   } = useMacronutrientsStore();
   const { isDarkMode } = useThemeStore();
   const { weightKg, setWeightKg } = useUserProfileStore();
+  const { weights, targetWeight, addWeightEntry, setTargetWeight } = useWeightStore();
 
   const handleIncrease = () => {
     if (waterConsumed < waterTarget) {
@@ -388,6 +391,36 @@ const HomePage = () => {
                   <h2 className="section-title">Weight Tracker</h2>
                   <div className="weight-tracker">
                     <p>Current Weight: {weightKg} kg</p>
+                    {targetWeight > 0 ? (
+                      <p>Target Weight: {targetWeight} kg</p>
+                    ) : (
+                      <button
+                        style={{
+                          padding: "8px 16px",
+                          fontSize: "14px",
+                          fontWeight: "500",
+                          border: "none",
+                          borderRadius: "8px",
+                          backgroundColor: "var(--button-primary-bg)",
+                          color: "var(--button-primary-text)",
+                          cursor: "pointer",
+                          marginBottom: "10px",
+                        }}
+                        onClick={() => {
+                          const target = prompt("Enter your target weight (kg):");
+                          if (target && !isNaN(Number(target))) {
+                            setTargetWeight(Number(target));
+                          }
+                        }}
+                      >
+                        Set Target Weight
+                      </button>
+                    )}
+                    {weights.length > 0 && (
+                      <div style={{ width: '100%', height: '200px' }}>
+                        <WeightChart weights={weights} />
+                      </div>
+                    )}
                     <button
                       style={{
                         padding: "12px 24px",
@@ -408,10 +441,14 @@ const HomePage = () => {
                         );
                         if (newWeight && !isNaN(Number(newWeight))) {
                           setWeightKg(Number(newWeight));
+                          addWeightEntry({
+                            value: Number(newWeight),
+                            timestamp: new Date().toISOString()
+                          });
                         }
                       }}
                     >
-                      Update Weight
+                      Enter Weight Entry
                     </button>
                   </div>
                 </div>

@@ -7,7 +7,7 @@ import {
   useWaterConsumedStore,
   useWaterTargetStore,
   useMacronutrientsStore,
-  useUserProfileStore
+  useUserProfileStore,
 } from "./store";
 import NavBar from "./components/NavBar";
 import PieChartCard from "./components/Chart";
@@ -32,9 +32,16 @@ const HomePage = () => {
   const { customGoalTarget, setCustomGoalTarget } = useCustomGoalTargetStore();
   const { customGoalConsumed, setCustomGoalConsumed } =
     useCustomGoalConsumedStore();
-  const { protein, increaseProtein , carbohydrates, increaseCarbohydrates , fats,increaseFats} = useMacronutrientsStore();
+  const {
+    protein,
+    increaseProtein,
+    carbohydrates,
+    increaseCarbohydrates,
+    fats,
+    increaseFats,
+  } = useMacronutrientsStore();
   const { isDarkMode } = useThemeStore();
-  const {weightKg,setWeightKg} = useUserProfileStore();
+  const { weightKg, setWeightKg } = useUserProfileStore();
 
   const handleIncrease = () => {
     if (waterConsumed < waterTarget) {
@@ -68,14 +75,20 @@ const HomePage = () => {
   }, [waterConsumed, waterTarget]);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    document.documentElement.setAttribute(
+      "data-theme",
+      isDarkMode ? "dark" : "light"
+    );
   }, [isDarkMode]);
 
   return (
-    <div className="home-container" style={{
-      backgroundColor: isDarkMode ? "#1A202C" : "white",
-      minHeight: "100vh"
-    }}>
+    <div
+      className="home-container"
+      style={{
+        backgroundColor: isDarkMode ? "#1A202C" : "white",
+        minHeight: "100vh",
+      }}
+    >
       {showConfetti && <Confetti />}
       {showMessage && (
         <div className="achievement-popup">
@@ -111,7 +124,9 @@ const HomePage = () => {
                           >
                             <FaMinus />
                           </button>
-                          <span className="amount"><p>0.25L</p></span>
+                          <span className="amount">
+                            <p>0.25L</p>
+                          </span>
                           <button
                             onClick={handleIncrease}
                             className="control-btn"
@@ -178,7 +193,7 @@ const HomePage = () => {
                                 <p className="error-message">{error}</p>
                               )}
 
-                              {data && data.items && (
+                              {data && data.items ? (
                                 <div className="search-results">
                                   <h4>Results:</h4>
                                   {data.items.map(
@@ -192,12 +207,25 @@ const HomePage = () => {
                                         <div className="calorie-actions">
                                           <button
                                             onClick={() => {
-                                              increaseCalorieConsumed(
-                                                item.calories
-                                              );
-                                              increaseProtein(item.protein_g);
-                                              increaseCarbohydrates(item.carbohydrates_total_g);
-                                              increaseFats(item.fat_total_g)
+                                              const timestamp =
+                                                new Date().toISOString();
+                                              increaseCalorieConsumed({
+                                                value: item.calories,
+                                                timestamp: timestamp,
+                                              });
+                                              increaseProtein({
+                                                value: item.protein_g,
+                                                timestamp: timestamp,
+                                              });
+                                              increaseCarbohydrates({
+                                                value:
+                                                  item.carbohydrates_total_g,
+                                                timestamp: timestamp,
+                                              });
+                                              increaseFats({
+                                                value: item.fat_total_g,
+                                                timestamp: timestamp,
+                                              });
                                               setIsCalorieDialogOpen(false);
                                             }}
                                             className="add-btn"
@@ -213,20 +241,110 @@ const HomePage = () => {
                                                 calories &&
                                                 !isNaN(Number(calories))
                                               ) {
-                                                increaseCalorieConsumed(
-                                                  Number(calories)
+                                                const protein =
+                                                  prompt("Enter protein (g):");
+                                                const carbs = prompt(
+                                                  "Enter carbohydrates (g):"
                                                 );
+                                                const fats =
+                                                  prompt("Enter fats (g):");
+                                                const timestamp =
+                                                  new Date().toISOString();
+
+                                                increaseCalorieConsumed({
+                                                  value: Number(calories),
+                                                  timestamp: timestamp,
+                                                });
+                                                if (
+                                                  protein &&
+                                                  !isNaN(Number(protein))
+                                                ) {
+                                                  increaseProtein({
+                                                    value: Number(protein),
+                                                    timestamp: timestamp,
+                                                  });
+                                                }
+                                                if (
+                                                  carbs &&
+                                                  !isNaN(Number(carbs))
+                                                ) {
+                                                  increaseCarbohydrates({
+                                                    value: Number(carbs),
+                                                    timestamp: timestamp,
+                                                  });
+                                                }
+                                                if (
+                                                  fats &&
+                                                  !isNaN(Number(fats))
+                                                ) {
+                                                  increaseFats({
+                                                    value: Number(fats),
+                                                    timestamp: timestamp,
+                                                  });
+                                                }
                                                 setIsCalorieDialogOpen(false);
                                               }
                                             }}
-                                            className="manual-btn"
+                                            className="add-btn"
                                           >
-                                            Add manually
+                                            Add Entry Manually
                                           </button>
                                         </div>
                                       </div>
                                     )
                                   )}
+                                </div>
+                              ) : (
+                                <div className="no-results">
+                                  <p>No results found.</p>
+                                  <button
+                                    onClick={() => {
+                                      const calories = prompt(
+                                        "Enter calories manually:"
+                                      );
+                                      if (
+                                        calories &&
+                                        !isNaN(Number(calories))
+                                      ) {
+                                        const protein =
+                                          prompt("Enter protein (g):");
+                                        const carbs = prompt(
+                                          "Enter carbohydrates (g):"
+                                        );
+                                        const fats = prompt("Enter fats (g):");
+
+                                        increaseCalorieConsumed({
+                                          value: Number(calories),
+                                          timestamp: new Date().toISOString(),
+                                        });
+                                        if (
+                                          protein &&
+                                          !isNaN(Number(protein))
+                                        ) {
+                                          increaseProtein({
+                                            value: Number(protein),
+                                            timestamp: new Date().toISOString(),
+                                          });
+                                        }
+                                        if (carbs && !isNaN(Number(carbs))) {
+                                          increaseCarbohydrates({
+                                            value: Number(carbs),
+                                            timestamp: new Date().toISOString(),
+                                          });
+                                        }
+                                        if (fats && !isNaN(Number(fats))) {
+                                          increaseFats({
+                                            value: Number(fats),
+                                            timestamp: new Date().toISOString(),
+                                          });
+                                        }
+                                        setIsCalorieDialogOpen(false);
+                                      }
+                                    }}
+                                    className="manual-btn"
+                                  >
+                                    Add Entry Manually
+                                  </button>
                                 </div>
                               )}
 
@@ -254,7 +372,7 @@ const HomePage = () => {
               <div className="card small-card">
                 <div className="centered-content">
                   <h2 className="section-title">Macronutrients</h2>
-                  <MacronutrientBarChart 
+                  <MacronutrientBarChart
                     protein={protein}
                     carbohydrates={carbohydrates}
                     fats={fats}
@@ -266,7 +384,7 @@ const HomePage = () => {
           <div className="bottom-row">
             <div className="cards-row">
               <div className="card small-card">
-              <div className="centered-content">
+                <div className="centered-content">
                   <h2 className="section-title">Weight Tracker</h2>
                   <div className="weight-tracker">
                     <p>Current Weight: {weightKg} kg</p>
@@ -282,10 +400,12 @@ const HomePage = () => {
                         cursor: "pointer",
                         transition: "all 0.3s ease",
                         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                        userSelect: "none"
+                        userSelect: "none",
                       }}
                       onClick={() => {
-                        const newWeight = prompt("Enter your current weight (kg):");
+                        const newWeight = prompt(
+                          "Enter your current weight (kg):"
+                        );
                         if (newWeight && !isNaN(Number(newWeight))) {
                           setWeightKg(Number(newWeight));
                         }

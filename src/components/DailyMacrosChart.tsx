@@ -86,6 +86,8 @@ const DailyMacrosChart: React.FC<DailyMacrosChartProps> = ({
         title: {
           display: false,
         },
+        beginAtZero: true,
+        min: 0,
         ticks: {
           font: {
             size: 10
@@ -96,6 +98,7 @@ const DailyMacrosChart: React.FC<DailyMacrosChartProps> = ({
         title: {
           display: false,
         },
+        beginAtZero: true,
         ticks: {
           font: {
             size: 10

@@ -1,0 +1,113 @@
+.navbar {
+  background-color: var(--card-bg);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  width: 100%;
+  height: 90px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+[data-theme='dark'] .navbar {
+  background-color: rgba(45, 55, 72, 0.95);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  height: 100%;
+}
+
+.welcome-text {
+  font-size: 25px;
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: color 0.3s ease;
+  cursor: default;
+}
+
+.welcome-text:hover {
+  transform: translateX(5px);
+}
+
+.app-title {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: 'Itim', serif;
+  color: var(--text-primary);
+  letter-spacing: 0.025em;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.app-title:hover {
+  transform: scale(1.05);
+}
+
+.bmi-text {
+  font-size: 18px;
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+
+.navbar-section {
+    display: flex;
+    margin-left: 10px;
+  }
+  .welcome-text {
+    font-size: 18px;
+  }
+
+  .app-title {
+    font-size: 28px;
+  }
+
+  .bmi-text {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar {
+    height: 70px;
+  }
+
+  .navbar-container {
+    padding: 10px;
+  }
+
+  .welcome-text {
+    font-size: 14px;
+  }
+
+  .app-title {
+    font-size: 24px;
+  }
+
+  .bmi-text {
+    font-size: 12px;
+  }
+
+  .theme-switch {
+    width: 50px;
+    height: 28px;
+  }
+}

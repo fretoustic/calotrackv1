@@ -90,6 +90,12 @@ const HomePage = () => {
       className="home-container"
       style={{
         backgroundColor: isDarkMode ? "#1A202C" : "#f8fafc",
+        backgroundImage: isDarkMode 
+          ? 'url("src/assets/dark_background.png")'
+          : 'url("src/assets/backdrop.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         minHeight: "100vh",
       }}
     >

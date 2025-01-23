@@ -1,6 +1,5 @@
-import { Box, Text, Flex, IconButton, Center } from "@chakra-ui/react";
+import { Box, Text, Flex, Button, Center } from "@chakra-ui/react";
 import { useUserProfileStore, useThemeStore } from "../store";
-import { FaMoon, FaSun } from "react-icons/fa";
 
 const NavBar = () => {
   const { name, weightKg, heightCm } = useUserProfileStore();
@@ -14,12 +13,17 @@ const NavBar = () => {
 
   return (
     <Box
-      backgroundColor={isDarkMode ? "#2D3748" : "#FFF2F2"}
+      backgroundColor={isDarkMode ? "rgba(45, 55, 72, 0.95)" : "#fefafa"}
       borderBottomLeftRadius="30px"
       borderBottomRightRadius="30px"
       width={"100%"}
       height={"90px"}
-      boxShadow="0 2px 10px rgba(0,0,0,0.1)"
+      boxShadow={isDarkMode ? "0 4px 20px rgba(0,0,0,0.3)" : "0 4px 20px rgba(0,0,0,0.1)"}
+      backdropFilter="blur(10px)"
+      position="sticky"
+      top="0"
+      zIndex="1000"
+      transition="all 0.3s ease"
     >
       <Flex 
         justifyContent="space-between" 
@@ -32,7 +36,9 @@ const NavBar = () => {
             fontSize={"25px"}
             color={isDarkMode ? "white" : "black"}
             fontWeight="medium"
-            transition="color 0.2s ease"
+            transition="color 0.3s ease"
+            _hover={{ transform: "translateX(5px)" }}
+            display="inline-block"
           >
             {name ? `Welcome Back, ${name}!` : 'Welcome!'}
           </Text>
@@ -45,7 +51,9 @@ const NavBar = () => {
             fontStyle="normal"
             color={isDarkMode ? "white" : "black"}
             letterSpacing="wide"
-            transition="color 0.2s ease"
+            transition="all 0.3s ease"
+            _hover={{ transform: "scale(1.05)" }}
+            cursor="default"
           >
             CaloTrack
           </Text>
@@ -59,21 +67,31 @@ const NavBar = () => {
           >
             {calculateBMI() ? `Your current BMI: ${calculateBMI()}` : ''}
           </Text>
-          <IconButton 
-            aria-label="Toggle dark mode"
-            icon={isDarkMode ? <FaSun /> : <FaMoon />}
+          <Button
             onClick={toggleDarkMode}
-            variant="ghost"
-            color={isDarkMode ? "white" : "black"}
-            size="lg"
+            bg={isDarkMode ? "rgba(45, 55, 72, 0.95)" : "#fefafa"}
+            color={isDarkMode ? "white" : "gray.700"}
+            size="sm"
             _hover={{
-              bg: isDarkMode ? "whiteAlpha.200" : "blackAlpha.200",
-              transform: "scale(1.1)",
+              bg: isDarkMode ? "gray.600" : "gray.100",
+              transform: "translateY(-2px)",
             }}
-            transition="all 0.2s ease-in-out"
+            _active={{
+              transform: "translateY(0)",
+            }}
+            transition="all 0.2s ease"
             borderRadius="full"
-            fontSize="30px"
-          />
+            fontSize="14px"
+            fontWeight="medium"
+            minW="70px"
+            h="35px"
+            boxShadow={isDarkMode ? 
+              "0 4px 6px -1px rgba(0, 0, 0, 0.4)" : 
+              "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+            }
+          >
+            {isDarkMode ? "Light" : "Dark"}
+          </Button>
         </Flex>
       </Flex>
     </Box>

@@ -19,6 +19,29 @@
 .home-container {
   display: grid;
   grid-template-areas: 'nav' 'main';
+  background-attachment: fixed; /* This keeps the background fixed while scrolling */
+  transition: background-image 0.3s ease; /* Smooth transition between images */
+  min-height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Add before pseudo-element for background overlay */
+.home-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
 .main-section {
@@ -445,22 +468,73 @@
 
 /* Mobile styles - Apply when screen width is 768px or less */
 @media screen and (max-width: 768px) {
+  .home-container {
+    background-attachment: scroll; /* Change to scroll for better mobile performance */
+  }
+
   .main-section {
-    padding: 15px;  /* Reduced from 30px */
+    padding: 10px;
+    overflow-x: hidden;
+  }
+
+  .content-wrapper {
+    padding: 0;
+    width: 100%;
   }
 
   .cards-row {
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
+    width: 100%;
+    padding: 0 5px;
   }
 
   .large-card,
   .small-card {
-    flex: none;
-    width: 100%;  /* Changed from calc(100vw - 40px) */
-    max-width: 100%;
-    margin-bottom: 20px;
+    width: 100%;
+    margin: 0 0 15px 0;
+    min-height: auto;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .chart-container {
+    padding: 10px;
+  }
+}
+
+/* Additional breakpoint for very small devices */
+@media screen and (max-width: 480px) {
+  .content-wrapper {
+    padding: 1rem;
+  }
+
+  .large-card,
+  .small-card {
+    width: calc(100vw - 20px);
+    margin-bottom: 16px;
+  }
+
+  .card {
+    padding: 1.25rem;
+    border-radius: 16px; /* Slightly reduced border radius */
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .water-controls,
+  .calorie-controls {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
   }
 
   .chart-container {
@@ -468,6 +542,7 @@
     align-items: center;
     width: 100%;
     gap: 30px;
+    padding: 5px;
   }
 
   .chart-container canvas {
@@ -500,32 +575,8 @@
     right: 50%;
     transform: translateX(50%);
   }
-}
 
-/* Additional breakpoint for very small devices */
-@media screen and (max-width: 480px) {
-  .content-wrapper {
-    padding: 1rem;
-  }
-
-  .large-card,
-  .small-card {
-    width: calc(100vw - 20px);
-    margin-bottom: 16px;
-  }
-
-  .card {
-    padding: 1.25rem;
-  }
-
-  .section-title {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .water-controls,
-  .calorie-controls {
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+  .nav-section {
+    margin-bottom: 10px;
   }
 }

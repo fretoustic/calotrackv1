@@ -53,6 +53,20 @@ const HomePage = () => {
     }
   };
 
+  const increaseMacros = (calories: number, protein: number, carbs: number, fats: number) => {
+    const timestamp = new Date().toISOString();
+    increaseCalorieConsumed({ value: calories, timestamp });
+    if (protein && !isNaN(Number(protein))) {
+      increaseProtein({ value: protein, timestamp });
+    }
+    if (carbs && !isNaN(Number(carbs))) {
+      increaseCarbohydrates({ value: carbs, timestamp });
+    }
+    if (fats && !isNaN(Number(fats))) {
+      increaseFats({ value: fats, timestamp });
+    }
+  };
+
   const [showConfetti, setShowConfetti] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [isCalorieDialogOpen, setIsCalorieDialogOpen] = useState(false);
@@ -134,23 +148,12 @@ const HomePage = () => {
                     <div className="calorie-actions">
                       <button
                         onClick={() => {
-                          const timestamp = new Date().toISOString();
-                          increaseCalorieConsumed({
-                            value: item.calories,
-                            timestamp: timestamp,
-                          });
-                          increaseProtein({
-                            value: item.protein_g,
-                            timestamp: timestamp,
-                          });
-                          increaseCarbohydrates({
-                            value: item.carbohydrates_total_g,
-                            timestamp: timestamp,
-                          });
-                          increaseFats({
-                            value: item.fat_total_g,
-                            timestamp: timestamp,
-                          });
+                          increaseMacros(
+                            item.calories,
+                            item.protein_g,
+                            item.carbohydrates_total_g,
+                            item.fat_total_g
+                          );
                           setIsCalorieDialogOpen(false);
                         }}
                         className="add-btn"
@@ -164,30 +167,13 @@ const HomePage = () => {
                             const protein = prompt("Enter protein (g):");
                             const carbs = prompt("Enter carbohydrates (g):");
                             const fats = prompt("Enter fats (g):");
-                            const timestamp = new Date().toISOString();
-
-                            increaseCalorieConsumed({
-                              value: Number(calories),
-                              timestamp: timestamp,
-                            });
-                            if (protein && !isNaN(Number(protein))) {
-                              increaseProtein({
-                                value: Number(protein),
-                                timestamp: timestamp,
-                              });
-                            }
-                            if (carbs && !isNaN(Number(carbs))) {
-                              increaseCarbohydrates({
-                                value: Number(carbs),
-                                timestamp: timestamp,
-                              });
-                            }
-                            if (fats && !isNaN(Number(fats))) {
-                              increaseFats({
-                                value: Number(fats),
-                                timestamp: timestamp,
-                              });
-                            }
+                            
+                            increaseMacros(
+                              Number(calories),
+                              Number(protein),
+                              Number(carbs),
+                              Number(fats)
+                            );
                             setIsCalorieDialogOpen(false);
                           }
                         }}
@@ -210,28 +196,12 @@ const HomePage = () => {
                       const carbs = prompt("Enter carbohydrates (g):");
                       const fats = prompt("Enter fats (g):");
 
-                      increaseCalorieConsumed({
-                        value: Number(calories),
-                        timestamp: new Date().toISOString(),
-                      });
-                      if (protein && !isNaN(Number(protein))) {
-                        increaseProtein({
-                          value: Number(protein),
-                          timestamp: new Date().toISOString(),
-                        });
-                      }
-                      if (carbs && !isNaN(Number(carbs))) {
-                        increaseCarbohydrates({
-                          value: Number(carbs),
-                          timestamp: new Date().toISOString(),
-                        });
-                      }
-                      if (fats && !isNaN(Number(fats))) {
-                        increaseFats({
-                          value: Number(fats),
-                          timestamp: new Date().toISOString(),
-                        });
-                      }
+                      increaseMacros(
+                        Number(calories),
+                        Number(protein),
+                        Number(carbs),
+                        Number(fats)
+                      );
                       setIsCalorieDialogOpen(false);
                     }
                   }}

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from "./SignUp";
 import SignUp2 from "./SignUp2";
 import SignUp3 from "./SignUp3";
-import HomePage from "./homePage";
+import HomePage from "./components/homepage/homePage";
 import "./global.css";
 function App() {
   return (

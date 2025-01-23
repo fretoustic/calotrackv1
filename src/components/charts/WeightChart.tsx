@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import "../homepage/homePage.css";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,8 +9,8 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -44,9 +45,9 @@ const WeightChart: React.FC<WeightChartProps> = ({ weights }) => {
         },
         ticks: {
           font: {
-            size: 10
-          }
-        }
+            size: 10,
+          },
+        },
       },
       x: {
         title: {
@@ -54,50 +55,50 @@ const WeightChart: React.FC<WeightChartProps> = ({ weights }) => {
         },
         ticks: {
           font: {
-            size: 10
+            size: 10,
           },
           maxRotation: 45,
-          minRotation: 45
-        }
-      }
+          minRotation: 45,
+        },
+      },
     },
     elements: {
       point: {
         radius: 3,
       },
       line: {
-        tension: 0.3
-      }
-    }
+        tension: 0.3,
+      },
+    },
   };
 
   // Sort weights by timestamp and format dates
-  const sortedWeights = [...weights].sort((a, b) => 
-    new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  const sortedWeights = [...weights].sort(
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
   );
 
   const data = {
-    labels: sortedWeights.map(entry => 
-      new Date(entry.timestamp).toLocaleDateString(undefined, { 
-        month: 'short', 
-        day: 'numeric' 
+    labels: sortedWeights.map((entry) =>
+      new Date(entry.timestamp).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
       })
     ),
     datasets: [
       {
-        label: 'Weight',
-        data: sortedWeights.map(entry => entry.value),
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-      }
+        label: "Weight",
+        data: sortedWeights.map((entry) => entry.value),
+        borderColor: "rgb(75, 192, 192)",
+        backgroundColor: "rgba(75, 192, 192, 0.5)",
+      },
     ],
   };
 
   return (
-    <div style={{ height: '150px', width: '100%' }}>
+    <div style={{ height: "150px", width: "100%" }}>
       <Line options={options} data={data} />
     </div>
   );
 };
 
-export default WeightChart; 
+export default WeightChart;

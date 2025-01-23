@@ -140,7 +140,7 @@ export const useCustomGoalConsumedStore = create<customGoalConsumed>((set) => ({
   },
 }));
 
-interface NutritionEntry {
+export interface NutritionEntry {
   value: number;
   timestamp: string;
 }

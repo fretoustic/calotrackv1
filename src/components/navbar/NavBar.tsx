@@ -1,5 +1,5 @@
-import { useUserProfileStore, useThemeStore } from "../store";
-import './NavBar.css';
+import { useUserProfileStore, useThemeStore } from "../../store";
+import "./NavBar.css";
 
 const NavBar = () => {
   const { name, weightKg, heightCm } = useUserProfileStore();
@@ -16,7 +16,7 @@ const NavBar = () => {
       <div className="navbar-container">
         <div className="navbar-section">
           <span className="welcome-text">
-            {name ? `Welcome Back, ${name}!` : 'Welcome!'}
+            {name ? `Welcome Back, ${name}!` : "Welcome!"}
           </span>
         </div>
         <div className="navbar-section">
@@ -24,7 +24,7 @@ const NavBar = () => {
         </div>
         <div className="navbar-section">
           <span className="bmi-text">
-            {calculateBMI() ? `Your current BMI: ${calculateBMI()}` : ''}
+            {calculateBMI() ? `Your current BMI: ${calculateBMI()}` : ""}
           </span>
           <label className="theme-switch">
             <input

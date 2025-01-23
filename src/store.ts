@@ -103,40 +103,51 @@ export const useCalorieConsumedStore = create<calorieConsumedStore>((set) => ({
   },
 }));
 
-type customGoal = {
-  customGoal: string;
-  setCustomGoal: (newCustomGoal: string) => void;  
+interface CustomGoal {
+  id: number;
+  name: string;
+  target: number;
+  consumed: number;
+  unit: string;
+}
+
+type CustomGoalsStore = {
+  goals: CustomGoal[];
+  addGoal: (name: string, target: number,id:number,unit:string) => void;
+  updateGoal: (id: number, updates: Partial<CustomGoal>) => void;
+  setConsumed: (id: number, amount: number) => void; // New function
 };
 
-export const useCustomGoalStore = create<customGoal>((set) => ({
-  customGoal: "",
-  setCustomGoal: (newCustomGoal: string) => {
-    set(() => ({ customGoal: newCustomGoal }));
+export const useCustomGoalsStore = create<CustomGoalsStore>((set) => ({
+  goals: [],
+  
+  addGoal: (name: string, target: number,id:number,unit:string) => {
+    set((state) => ({
+      goals: [...state.goals, {
+        id,
+        name,
+        target,
+        consumed: 0,
+        unit: unit
+      }]
+    }));
   },
-}));
 
 
-type customGoalTarget = {
-  customGoalTarget: number;
-  setCustomGoalTarget: (newCustomGoalTarget: number) => void;  
-};
-
-export const useCustomGoalTargetStore = create<customGoalTarget>((set) => ({
-  customGoalTarget: 0,
-  setCustomGoalTarget: (newCustomGoalTarget: number) => {
-    set(() => ({ customGoalTarget: newCustomGoalTarget }));
+  updateGoal: (id: number, updates: Partial<CustomGoal>) => {
+    set((state) => ({
+      goals: state.goals.map(goal => 
+        goal.id === id ? { ...goal, ...updates } : goal
+      )
+    }));
   },
-}));
 
-type customGoalConsumed  = {
-  customGoalConsumed: number;
-  setCustomGoalConsumed: (newCustomGoalConsumed: number) => void;  
-};
-
-export const useCustomGoalConsumedStore = create<customGoalConsumed>((set) => ({
-  customGoalConsumed: 0,
-  setCustomGoalConsumed: (newCustomGoalConsumed: number) => {
-    set(() => ({ customGoalConsumed: newCustomGoalConsumed }));
+  setConsumed: (id: number, amount: number) => {
+    set((state) => ({
+      goals: state.goals.map(goal =>
+        goal.id === id ? { ...goal, consumed: amount } : goal
+      )
+    }));
   },
 }));
 

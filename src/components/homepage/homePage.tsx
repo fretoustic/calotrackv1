@@ -1,9 +1,6 @@
 import {
   useCalorieConsumedStore,
   useCalorieTargetStore,
-  useCustomGoalConsumedStore,
-  useCustomGoalStore,
-  useCustomGoalTargetStore,
   useWaterConsumedStore,
   useWaterTargetStore,
   useMacronutrientsStore,
@@ -31,10 +28,6 @@ const HomePage = () => {
   const { calorieTarget } = useCalorieTargetStore();
   const { calorieConsumed, increaseCalorieConsumed } =
     useCalorieConsumedStore();
-  const { customGoal } = useCustomGoalStore();
-  const { customGoalTarget } = useCustomGoalTargetStore();
-  const { customGoalConsumed, setCustomGoalConsumed } =
-    useCustomGoalConsumedStore();
   const {
     protein,
     increaseProtein,
@@ -296,12 +289,7 @@ const HomePage = () => {
                 setWeightKg={setWeightKg}
                 addWeightEntry={addWeightEntry}
               />
-              <CustomGoalCard
-                customGoal={customGoal}
-                customGoalTarget={customGoalTarget}
-                customGoalConsumed={customGoalConsumed}
-                setCustomGoalConsumed={setCustomGoalConsumed}
-              />
+              <CustomGoalCard />
               <TimeTrackedChart
                 protein={protein}
                 carbohydrates={carbohydrates}

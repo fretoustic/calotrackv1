@@ -67,6 +67,40 @@ const HomePage = () => {
     }
   };
 
+  const validateInput = (value: string | null, fieldName: string): number | null => {
+    if (!value || value.trim() === '') {
+      alert(`${fieldName} is required`);
+      return null;
+    }
+    const num = Number(value);
+    if (isNaN(num)) {
+      alert(`${fieldName} must be a valid number`);
+      return null;
+    }
+    if (num < 0) {
+      alert(`${fieldName} cannot be negative`);
+      return null;
+    }
+    return num;
+  };
+
+  const handleManualEntry = () => {
+    const calories = validateInput(prompt("Enter calories:"), "Calories");
+    if (calories === null) return;
+
+    const protein = validateInput(prompt("Enter protein (g):"), "Protein");
+    if (protein === null) return;
+
+    const carbs = validateInput(prompt("Enter carbohydrates (g):"), "Carbohydrates");
+    if (carbs === null) return;
+
+    const fats = validateInput(prompt("Enter fats (g):"), "Fats");
+    if (fats === null) return;
+
+    increaseMacros(calories, protein, carbs, fats);
+    setIsCalorieDialogOpen(false);
+  };
+
   const [showConfetti, setShowConfetti] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [isCalorieDialogOpen, setIsCalorieDialogOpen] = useState(false);
@@ -161,22 +195,7 @@ const HomePage = () => {
                         Add this?
                       </button>
                       <button
-                        onClick={() => {
-                          const calories = prompt("Enter calories manually:");
-                          if (calories && !isNaN(Number(calories))) {
-                            const protein = prompt("Enter protein (g):");
-                            const carbs = prompt("Enter carbohydrates (g):");
-                            const fats = prompt("Enter fats (g):");
-                            
-                            increaseMacros(
-                              Number(calories),
-                              Number(protein),
-                              Number(carbs),
-                              Number(fats)
-                            );
-                            setIsCalorieDialogOpen(false);
-                          }
-                        }}
+                        onClick={handleManualEntry}
                         className="add-btn"
                       >
                         Add Entry Manually
@@ -189,22 +208,7 @@ const HomePage = () => {
               <div className="no-results">
                 <p>No results found.</p>
                 <button
-                  onClick={() => {
-                    const calories = prompt("Enter calories manually:");
-                    if (calories && !isNaN(Number(calories))) {
-                      const protein = prompt("Enter protein (g):");
-                      const carbs = prompt("Enter carbohydrates (g):");
-                      const fats = prompt("Enter fats (g):");
-
-                      increaseMacros(
-                        Number(calories),
-                        Number(protein),
-                        Number(carbs),
-                        Number(fats)
-                      );
-                      setIsCalorieDialogOpen(false);
-                    }
-                  }}
+                  onClick={handleManualEntry}
                   className="manual-btn"
                 >
                   Add Entry Manually

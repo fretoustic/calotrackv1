@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./DialogBox.css";
+import "./customDialog.css";
 
 interface CustomDialogProps {
   title: string;
@@ -34,24 +35,26 @@ const CustomDialog = ({
 
       {isOpen && (
         <div className="dialog-overlay">
-          <div className="dialog-content">
+          <div className="dialog-content custom-dialog">
             <h2>{title}</h2>
-            {fields.map((field) => (
-              <div key={field.id} className="dialog-field">
-                <label htmlFor={field.id}>{field.label}</label>
-                <input
-                  id={field.id}
-                  type={field.type}
-                  value={values[field.id] || ""}
-                  onChange={(e) =>
-                    setValues((prev) => ({
-                      ...prev,
-                      [field.id]: e.target.value,
-                    }))
-                  }
-                />
-              </div>
-            ))}
+            <div className="fields">
+              {fields.map((field) => (
+                <div key={field.id} className="dialog-field custom-dialog-field">
+                  <label htmlFor={field.id}>{field.label}</label>
+                  <input
+                    id={field.id}
+                    type={field.type}
+                    value={values[field.id] || ""}
+                    onChange={(e) =>
+                      setValues((prev) => ({
+                        ...prev,
+                        [field.id]: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+              ))}
+            </div>
             <div className="dialog-buttons">
               <button onClick={handleSubmit}>Save</button>
               <button onClick={handleClose}>Cancel</button>

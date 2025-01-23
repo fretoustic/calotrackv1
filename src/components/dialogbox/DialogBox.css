@@ -150,3 +150,16 @@
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-width: 480px) {
+  dialog-description{
+    font-size: 13px;
+  }
+  .dialog-content {
+    height: 75%;
+    width: 100%;
+  }
+  .dialog-buttons{
+    margin-top: -44px;
+  }
+}

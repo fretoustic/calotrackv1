@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useUserProfileStore, useWeightStore } from "../../store";
 import { useState } from "react";
+import "./signup.css";
 
 const SignUp3 = () => {
   const navigate = useNavigate();
@@ -25,103 +26,46 @@ const SignUp3 = () => {
     }
   };
   return (
-    <div
-      className="sign-up3"
-      style={{
-        backgroundImage: 'url("src/assets/backdrop.png")',
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: '"Itim", serif',
-        fontWeight: 400,
-        fontStyle: "normal",
-      }}
+    <div 
+      className="signup-container"
+      style={{ backgroundImage: 'url("src/assets/backdrop.png")' }}
     >
-      <div
-        style={{
-          textAlign: "center",
-          marginBottom: "2rem",
-          width: "100%",
-          maxWidth: "400px",
-        }}
-      >
-        <h2 style={{ fontSize: "2rem", margin: "1rem 0" }}>
-          Some more details for us to help you!
-        </h2>
+      <div className="content-container">
+        <h2 className="title">Some more details for us to help you!</h2>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <div style={{ textAlign: "left" }}>
-            <label style={{ display: "block", marginBottom: "0.5rem" }}>
-              Weight (kg)
-            </label>
+        <div className="input-container">
+          <div className="form-group">
+            <label>Weight (kg)</label>
             <input
               type="number"
               placeholder="Enter your weight"
-              style={{
-                padding: "0.5rem",
-                border: `1px solid ${errors.weight ? "red" : "#ccc"}`,
-                borderRadius: "4px",
-                width: "100%",
-              }}
+              className={`input-field ${errors.weight ? 'error' : ''}`}
               value={weightKg || ""}
-              onChange={(e) =>
-                setWeightKg(
-                  e.target.value === "" ? 0 : parseFloat(e.target.value)
-                )
-              }
+              onChange={(e) => setWeightKg(e.target.value === "" ? 0 : parseFloat(e.target.value))}
             />
             {errors.weight && (
-              <div style={{ color: "red", fontSize: "0.8rem" }}>
-                Valid weight is required
-              </div>
+              <div className="error-message">Valid weight is required</div>
             )}
           </div>
 
-          <div style={{ textAlign: "left" }}>
-            <label style={{ display: "block", marginBottom: "0.5rem" }}>
-              Height (cm)
-            </label>
+          <div className="form-group">
+            <label>Height (cm)</label>
             <input
               type="number"
               placeholder="Enter your height"
-              style={{
-                padding: "0.5rem",
-                border: `1px solid ${errors.height ? "red" : "#ccc"}`,
-                borderRadius: "4px",
-                width: "100%",
-              }}
+              className={`input-field ${errors.height ? 'error' : ''}`}
               value={heightCm || ""}
-              onChange={(e) =>
-                setHeightCm(
-                  e.target.value === "" ? 0 : parseFloat(e.target.value)
-                )
-              }
+              onChange={(e) => setHeightCm(e.target.value === "" ? 0 : parseFloat(e.target.value))}
             />
             {errors.height && (
-              <div style={{ color: "red", fontSize: "0.8rem" }}>
-                Valid height is required
-              </div>
+              <div className="error-message">Valid height is required</div>
             )}
           </div>
         </div>
       </div>
 
-      <button
-        style={{
-          backgroundColor: "blue",
-          color: "white",
-          padding: "0.5rem 1rem",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-          opacity: !weightKg || !heightCm ? 0.5 : 1,
-        }}
+      <button 
+        className={`button ${(!weightKg || !heightCm) ? 'disabled' : ''} but`}
         onClick={validateAndNavigate}
       >
         All SET!

@@ -1,0 +1,26 @@
+/* Small phones (up to 480px) */
+@media screen and (max-width: 480px) {
+    .custom-dialog input{
+        margin: 5px 0;
+        height: 1px;
+    }
+    .custom-dialog h2{
+        font-size: 15px;
+    }
+    .custom-dialog-field{
+        font-size: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .custom-dialog-field label{
+        margin-right: 10px;
+    }
+    .custom-dialog-field input{
+        font-size: 10px;
+        width:100px;
+    }
+    .fields{
+        width: 60%;
+    }
+}

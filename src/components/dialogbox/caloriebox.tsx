@@ -29,7 +29,7 @@ export const CalorieBox = ({
         <div className="dialog-overlay">
           <div className="dialog-content">
             <h2>Calorie Target</h2>
-            <p>
+            <p className="dialog-description">
               Recommended based on your height and weight :
               {Math.round((10 * weightKg + 6.25 * heightCm - 5 * 25 + 5) * 1.2)}{" "}
               kcal

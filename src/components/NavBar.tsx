@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Button, Center } from "@chakra-ui/react";
+import { Box, Flex, Text, Center } from "@chakra-ui/react";
 import { useUserProfileStore, useThemeStore } from "../store";
 
 const NavBar = () => {
@@ -18,21 +18,23 @@ const NavBar = () => {
       borderBottomRightRadius="30px"
       width={"100%"}
       height={"90px"}
-      boxShadow={isDarkMode ? "0 4px 20px rgba(0,0,0,0.3)" : "0 4px 20px rgba(0,0,0,0.1)"}
+      boxShadow={
+        isDarkMode ? "0 4px 20px rgba(0,0,0,0.3)" : "0 4px 20px rgba(0,0,0,0.1)"
+      }
       backdropFilter="blur(10px)"
       position="sticky"
       top="0"
       zIndex="1000"
       transition="all 0.3s ease"
     >
-      <Flex 
-        justifyContent="space-between" 
-        alignItems="center" 
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
         padding={"15px"}
         height="100%"
       >
         <Flex gap={4} alignItems="center" flex="1">
-          <Text 
+          <Text
             fontSize={"25px"}
             color={isDarkMode ? "white" : "black"}
             fontWeight="medium"
@@ -40,7 +42,7 @@ const NavBar = () => {
             _hover={{ transform: "translateX(5px)" }}
             display="inline-block"
           >
-            {name ? `Welcome Back, ${name}!` : 'Welcome!'}
+            {name ? `Welcome Back, ${name}!` : "Welcome!"}
           </Text>
         </Flex>
         <Center flex="1">
@@ -59,39 +61,25 @@ const NavBar = () => {
           </Text>
         </Center>
         <Flex gap={4} alignItems="center" justifyContent="flex-end" flex="1">
-          <Text 
+          <Text
             fontSize={"18px"}
             color={isDarkMode ? "white" : "black"}
             fontWeight="medium"
             transition="color 0.2s ease"
           >
-            {calculateBMI() ? `Your current BMI: ${calculateBMI()}` : ''}
+            {calculateBMI() ? `Your current BMI: ${calculateBMI()}` : ""}
           </Text>
-          <Button
-            onClick={toggleDarkMode}
-            bg={isDarkMode ? "rgba(45, 55, 72, 0.95)" : "#fefafa"}
-            color={isDarkMode ? "white" : "gray.700"}
-            size="sm"
-            _hover={{
-              bg: isDarkMode ? "gray.600" : "gray.100",
-              transform: "translateY(-2px)",
-            }}
-            _active={{
-              transform: "translateY(0)",
-            }}
-            transition="all 0.2s ease"
-            borderRadius="full"
-            fontSize="14px"
-            fontWeight="medium"
-            minW="70px"
-            h="35px"
-            boxShadow={isDarkMode ? 
-              "0 4px 6px -1px rgba(0, 0, 0, 0.4)" : 
-              "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
-            }
-          >
-            {isDarkMode ? "Light" : "Dark"}
-          </Button>
+          <label className="theme-switch">
+            <input
+              type="checkbox"
+              checked={isDarkMode}
+              onChange={toggleDarkMode}
+            />
+            <span className="slider">
+              <span className="icon">🌙</span>
+              <span className="icon">☀️</span>
+            </span>
+          </label>
         </Flex>
       </Flex>
     </Box>

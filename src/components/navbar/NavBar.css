@@ -12,6 +12,11 @@
   transition: all 0.3s ease;
 }
 
+.navbar-section {
+  display: flex;
+  flex-direction: row;
+}
+
 [data-theme='dark'] .navbar {
   background-color: rgba(45, 55, 72, 0.95);
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
@@ -52,17 +57,38 @@
 }
 
 .bmi-text {
+  display: flex;
   font-size: 18px;
   color: var(--text-primary);
   font-weight: 500;
   transition: color 0.2s ease;
+  align-items: center;
 }
 
 .theme-switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+  display: none;
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Media Queries */

@@ -1,5 +1,7 @@
 import { useUserProfileStore, useThemeStore } from "../../store";
 import "./NavBar.css";
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 const NavBar = () => {
   const { name, weightKg, heightCm } = useUserProfileStore();
@@ -26,17 +28,12 @@ const NavBar = () => {
           <span className="bmi-text">
             {calculateBMI() ? `Your current BMI: ${calculateBMI()}` : ""}
           </span>
-          <label className="theme-switch">
-            <input
-              type="checkbox"
-              checked={isDarkMode}
-              onChange={toggleDarkMode}
-            />
-            <span className="slider">
-              <span className="icon">🌙</span>
-              <span className="icon">☀️</span>
-            </span>
-          </label>
+          <button 
+            className="theme-toggle-btn"
+            onClick={toggleDarkMode}
+          >
+            {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </button>
         </div>
       </div>
     </div>

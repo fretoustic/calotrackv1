@@ -584,3 +584,17 @@
     margin-bottom: 10px;
   }
 }
+
+.nav-button.bottom {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-button.top {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}

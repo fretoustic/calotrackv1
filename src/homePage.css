@@ -21,6 +21,10 @@
   grid-template-areas: 'nav' 'main';
 }
 
+.nav-section {
+  grid-area: nav;
+}
+
 .main-section {
   padding: 15px;  /* Reduced from 30px */
 }
@@ -441,91 +445,4 @@
 .weight-tracker button:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-}
-
-/* Mobile styles - Apply when screen width is 768px or less */
-@media screen and (max-width: 768px) {
-  .main-section {
-    padding: 15px;  /* Reduced from 30px */
-  }
-
-  .cards-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .large-card,
-  .small-card {
-    flex: none;
-    width: 100%;  /* Changed from calc(100vw - 40px) */
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .chart-container {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    gap: 30px;
-  }
-
-  .chart-container canvas {
-    max-width: 100%;
-    height: auto !important;
-  }
-
-  .calorie-dialog {
-    width: 95%;
-    max-width: none;
-    padding: 1rem;
-  }
-
-  .search-section {
-    flex-direction: column;
-  }
-
-  .water-controls,
-  .calorie-controls {
-    flex-wrap: wrap;
-  }
-
-  .control-btn {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  .achievement-popup {
-    width: 90%;
-    right: 50%;
-    transform: translateX(50%);
-  }
-}
-
-/* Additional breakpoint for very small devices */
-@media screen and (max-width: 480px) {
-  .content-wrapper {
-    padding: 1rem;
-  }
-
-  .large-card,
-  .small-card {
-    width: calc(100vw - 20px);
-    margin-bottom: 16px;
-  }
-
-  .card {
-    padding: 1.25rem;
-  }
-
-  .section-title {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .water-controls,
-  .calorie-controls {
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-}
+} 

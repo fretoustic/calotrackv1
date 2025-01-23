@@ -9,6 +9,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import "../homepage/homePage.css";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -18,26 +19,19 @@ ChartJS.register(
   Legend
 );
 
-interface NutritionEntry {
-  value: number;
+interface BarChartProps {
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor: string;
+    borderWidth?: number;
+  }[];
+  labels: string[];
+  title: string;
+  yAxisLabel?: string;
 }
 
-interface MacronutrientBarChartProps {
-  protein: NutritionEntry[];
-  carbohydrates: NutritionEntry[];
-  fats: NutritionEntry[];
-}
-
-const MacronutrientBarChart: React.FC<MacronutrientBarChartProps> = ({
-  protein,
-  carbohydrates,
-  fats,
-}) => {
-  // Sum up the values from each array
-  const proteinTotal = protein.reduce((sum, entry) => sum + entry.value, 0);
-  const carbsTotal = carbohydrates.reduce((sum, entry) => sum + entry.value, 0);
-  const fatsTotal = fats.reduce((sum, entry) => sum + entry.value, 0);
-
+const BarChart: React.FC<BarChartProps> = ({ datasets, labels, title, yAxisLabel = "" }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -47,7 +41,7 @@ const MacronutrientBarChart: React.FC<MacronutrientBarChartProps> = ({
       },
       title: {
         display: true,
-        text: "Daily Macronutrients",
+        text: title,
         font: {
           size: 16,
           family: "'Arial', sans-serif",
@@ -58,35 +52,16 @@ const MacronutrientBarChart: React.FC<MacronutrientBarChartProps> = ({
       y: {
         beginAtZero: true,
         title: {
-          display: true,
-          text: "Grams",
+          display: !!yAxisLabel,
+          text: yAxisLabel,
         },
       },
     },
   };
 
   const data = {
-    labels: ["Macronutrients"],
-    datasets: [
-      {
-        label: "Protein",
-        data: [proteinTotal],
-        backgroundColor: "rgba(75, 192, 192, 0.7)",
-        borderWidth: 1,
-      },
-      {
-        label: "Carbohydrates",
-        data: [carbsTotal],
-        backgroundColor: "rgba(54, 162, 235, 0.7)",
-        borderWidth: 1,
-      },
-      {
-        label: "Fats",
-        data: [fatsTotal],
-        backgroundColor: "rgba(255, 206, 86, 0.7)",
-        borderWidth: 1,
-      },
-    ],
+    labels,
+    datasets,
   };
 
   return (
@@ -96,4 +71,4 @@ const MacronutrientBarChart: React.FC<MacronutrientBarChartProps> = ({
   );
 };
 
-export default MacronutrientBarChart;
+export default BarChart;

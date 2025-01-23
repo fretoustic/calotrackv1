@@ -10,6 +10,10 @@
   top: 0;
   z-index: 1000;
   transition: all 0.3s ease;
+  font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .navbar-section {
@@ -34,7 +38,6 @@
   font-size: 25px;
   color: var(--text-primary);
   font-weight: 500;
-  transition: color 0.3s ease;
   cursor: default;
 }
 
@@ -63,6 +66,8 @@
   font-weight: 500;
   transition: color 0.2s ease;
   align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .theme-switch {
@@ -113,13 +118,18 @@
 
 @media screen and (max-width: 480px) {
   .navbar {
-    height: 70px;
+    height: 60px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
   }
 
   .navbar-container {
+    height: 80%;
     padding: 10px;
   }
-
+  .theme-toggle-btn {
+    margin-left: 2px;
+  }
   .welcome-text {
     font-size: 14px;
   }

@@ -31,8 +31,8 @@ const HomePage = () => {
   const { calorieTarget } = useCalorieTargetStore();
   const { calorieConsumed, increaseCalorieConsumed } =
     useCalorieConsumedStore();
-  const { customGoal, setCustomGoal } = useCustomGoalStore();
-  const { customGoalTarget, setCustomGoalTarget } = useCustomGoalTargetStore();
+  const { customGoal } = useCustomGoalStore();
+  const { customGoalTarget } = useCustomGoalTargetStore();
   const { customGoalConsumed, setCustomGoalConsumed } =
     useCustomGoalConsumedStore();
   const {
@@ -70,7 +70,6 @@ const HomePage = () => {
     if (waterConsumed === waterTarget && waterTarget !== 0) {
       setShowConfetti(true);
       setShowMessage(true);
-      // Hide confetti and message after 5 seconds
       const timer = setTimeout(() => {
         setShowConfetti(false);
         setShowMessage(false);

@@ -19,8 +19,11 @@ import MacronutrientsCard from "../cards/macronutrientscard";
 import WeightCard from "../cards/weightcard";
 import CustomGoalCard from "../cards/customgoalcard";
 import TimeTrackedChart from "../cards/timetrackedchart";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const { weightKg, heightCm, name ,setWeightKg } = useUserProfileStore();
   const { waterTarget } = useWaterTargetStore();
   const { waterConsumed, increaseConsumed, decreaseConsumed } =
     useWaterConsumedStore();
@@ -37,7 +40,6 @@ const HomePage = () => {
     increaseFats,
   } = useMacronutrientsStore();
   const { isDarkMode } = useThemeStore();
-  const { weightKg, setWeightKg } = useUserProfileStore();
   const { weights, targetWeight, addWeightEntry, setTargetWeight } =
     useWeightStore();
 
@@ -125,6 +127,12 @@ const HomePage = () => {
       isDarkMode ? "dark" : "light"
     );
   }, [isDarkMode]);
+
+  useEffect(() => {
+    if (!weightKg || !heightCm || !name) {
+      navigate("/signup2");
+    }
+  }, [weightKg, heightCm, name, navigate]);
 
   return (
     <div

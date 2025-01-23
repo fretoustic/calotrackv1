@@ -21,7 +21,9 @@
   grid-template-areas: 'nav' 'main';
 }
 
-
+.main-section {
+  padding: 15px;  /* Reduced from 30px */
+}
 .content-wrapper {
   display: flex;
   flex-direction: column;

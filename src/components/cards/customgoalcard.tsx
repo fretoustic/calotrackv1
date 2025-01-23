@@ -46,7 +46,7 @@ const CustomGoalCard = () => {
                   }
                 }}
                 triggerButton={
-                  <button className="dialog-buttons">Add Custom Goal</button>
+                  <button className="add-calorie-btn">Add Custom Goal</button>
                 }
               />
             </div>

@@ -65,7 +65,9 @@
 
 .cards-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 35px;
+
 }
 
 .card {

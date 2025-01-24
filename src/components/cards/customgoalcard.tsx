@@ -1,6 +1,6 @@
-import { useCustomGoalsStore } from "../../../store";
-import PieChartCard from "../../charts/Chart";
-import CustomDialog from "../../dialogbox/customDialog/CustomDialog";
+import { useCustomGoalsStore } from "../../store";
+import PieChartCard from "../charts/Chart";
+import CustomDialog from "../dialogbox/CustomDialog";
 import "../homepage/homePage.css";
 import { useState } from "react";
 

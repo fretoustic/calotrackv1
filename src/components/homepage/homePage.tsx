@@ -20,7 +20,8 @@ import WeightCard from "../cards/weightcard";
 import CustomGoalCard from "../cards/customgoalcard";
 import TimeTrackedChart from "../cards/timetrackedchart";
 import { useNavigate } from "react-router-dom";
-
+import background from "../../assets/backdrop.png";
+import darkBackground from "../../assets/dark_background.png";
 const HomePage = () => {
   const navigate = useNavigate();
   const { weightKg, heightCm, name, setWeightKg } = useUserProfileStore();
@@ -151,8 +152,8 @@ const HomePage = () => {
       style={{
         backgroundColor: isDarkMode ? "#1A202C" : "#f8fafc",
         backgroundImage: isDarkMode
-          ? 'url("../../assets/dark_background.png")'
-          : 'url("../../assets/backdrop.png")',
+          ? `url(${darkBackground})`
+          : `url(${background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

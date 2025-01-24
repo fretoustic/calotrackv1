@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserProfileStore, useWeightStore } from "../../store";
 import { useState } from "react";
 import "./signup.css";
-
+import image from "../../assets/backdrop.png";
 const SignUp3 = () => {
   const navigate = useNavigate();
   const { weightKg, heightCm, setWeightKg, setHeightCm } =
@@ -26,9 +26,9 @@ const SignUp3 = () => {
     }
   };
   return (
-    <div 
+    <div
       className="signup-container"
-      style={{ backgroundImage: 'url("src/assets/backdrop.png")' }}
+      style={{ backgroundImage: `url(${image})` }}
     >
       <div className="content-container">
         <h2 className="title">Some more details for us to help you!</h2>
@@ -39,9 +39,13 @@ const SignUp3 = () => {
             <input
               type="number"
               placeholder="Enter your weight"
-              className={`input-field ${errors.weight ? 'error' : ''}`}
+              className={`input-field ${errors.weight ? "error" : ""}`}
               value={weightKg || ""}
-              onChange={(e) => setWeightKg(e.target.value === "" ? 0 : parseFloat(e.target.value))}
+              onChange={(e) =>
+                setWeightKg(
+                  e.target.value === "" ? 0 : parseFloat(e.target.value)
+                )
+              }
             />
             {errors.weight && (
               <div className="error-message">Valid weight is required</div>
@@ -53,9 +57,13 @@ const SignUp3 = () => {
             <input
               type="number"
               placeholder="Enter your height"
-              className={`input-field ${errors.height ? 'error' : ''}`}
+              className={`input-field ${errors.height ? "error" : ""}`}
               value={heightCm || ""}
-              onChange={(e) => setHeightCm(e.target.value === "" ? 0 : parseFloat(e.target.value))}
+              onChange={(e) =>
+                setHeightCm(
+                  e.target.value === "" ? 0 : parseFloat(e.target.value)
+                )
+              }
             />
             {errors.height && (
               <div className="error-message">Valid height is required</div>
@@ -64,8 +72,8 @@ const SignUp3 = () => {
         </div>
       </div>
 
-      <button 
-        className={`button ${(!weightKg || !heightCm) ? 'disabled' : ''} but`}
+      <button
+        className={`button ${!weightKg || !heightCm ? "disabled" : ""} but`}
         onClick={validateAndNavigate}
       >
         All SET!

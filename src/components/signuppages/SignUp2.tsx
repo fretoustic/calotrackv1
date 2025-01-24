@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserProfileStore } from "../../store";
 import { useState } from "react";
 import "./signup.css";
-
+import image from "../../assets/backdrop.png";
 const SignUp2 = () => {
   const navigate = useNavigate();
   const { name, email, setName, setEmail } = useUserProfileStore();
@@ -21,9 +21,9 @@ const SignUp2 = () => {
   };
 
   return (
-    <div 
+    <div
       className="signup-container"
-      style={{ backgroundImage: 'url("src/assets/backdrop.png")' }}
+      style={{ backgroundImage: `url(${image})` }}
     >
       <div className="content-container">
         <div className="title">Let's get to know you!</div>
@@ -34,7 +34,7 @@ const SignUp2 = () => {
             <input
               type="text"
               placeholder="Enter your name"
-              className={`input-field ${errors.name ? 'error' : ''}`}
+              className={`input-field ${errors.name ? "error" : ""}`}
               value={name || ""}
               onChange={(e) => setName(e.target.value)}
             />
@@ -48,7 +48,7 @@ const SignUp2 = () => {
             <input
               type="email"
               placeholder="Enter your email"
-              className={`input-field ${errors.email ? 'error' : ''}`}
+              className={`input-field ${errors.email ? "error" : ""}`}
               value={email || ""}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -58,7 +58,7 @@ const SignUp2 = () => {
           </div>
 
           <button
-            className={`button ${(!name || !email) ? 'disabled' : ''} but` }
+            className={`button ${!name || !email ? "disabled" : ""} but`}
             onClick={validateAndNavigate}
           >
             Next

@@ -47,7 +47,19 @@ const HistoryBox = ({ isOpen, onClose }: HistoryBoxProps) => {
             </div>
           ))}
         </div>
-        <button onClick={onClose}>Close</button>
+        <button
+          style={{
+            backgroundColor: "#ff4444",
+            color: "white",
+            border: "none",
+            padding: "5px 10px",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+          onClick={onClose}
+        >
+          Close
+        </button>
       </div>
     </div>
   );

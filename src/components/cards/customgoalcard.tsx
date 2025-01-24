@@ -1,4 +1,4 @@
-import { useCustomGoalsStore } from "../../store";
+import { useCustomGoalsStore, useThemeStore } from "../../store";
 import PieChartCard from "../charts/Chart";
 import CustomDialog from "../dialogbox/CustomDialog";
 import "../homepage/homePage.css";
@@ -11,7 +11,7 @@ const CustomGoalCard = () => {
   const customGoal = goals[currentIndex]?.name || "";
   const customGoalTarget = goals[currentIndex]?.target || 0;
   const customGoalConsumed = goals[currentIndex]?.consumed || 0;
-
+  const { isDarkMode } = useThemeStore();
   const handleSetTarget = () => {
     const amount = prompt(`Enter target ${customGoal} amount:`);
     if (amount && !isNaN(Number(amount))) {
@@ -23,37 +23,42 @@ const CustomGoalCard = () => {
     <div className="card large-card custom-goal-card">
       {goals.length === 0 ? (
         <>
-          <h2 className="section-title">Custom Goals</h2>
-          <div
-            style={{
-              marginTop: "auto",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <CustomDialog
-              title="Add Custom Goal"
-              fields={[
-                { label: "Goal Name", type: "text", id: "name" },
-                { label: "Target Amount", type: "number", id: "target" },
-                { label: "Unit", type: "text", id: "unit" },
-              ]}
-              onSubmit={(values) => {
-                if (values.name && !isNaN(Number(values.target))) {
-                  const newId =
-                    goals.length > 0 ? goals[goals.length - 1].id + 1 : 1;
-                  addGoal(
-                    values.name as string,
-                    Number(values.target),
-                    newId,
-                    values.unit as string
-                  );
-                }
+          <div className="centered-content">
+            <h2 className="section-title">Custom Goals</h2>
+            <p className={isDarkMode ? "text-light" : ""}>
+              Want to set your calorie targets?
+            </p>
+            <div
+              style={{
+                marginTop: "auto",
+                display: "flex",
+                justifyContent: "center",
               }}
-              triggerButton={
-                <button className="add-calorie-btn">Add Custom Goal</button>
-              }
-            />
+            >
+              <CustomDialog
+                title="Add Custom Goal"
+                fields={[
+                  { label: "Goal Name", type: "text", id: "name" },
+                  { label: "Target Amount", type: "number", id: "target" },
+                  { label: "Unit", type: "text", id: "unit" },
+                ]}
+                onSubmit={(values) => {
+                  if (values.name && !isNaN(Number(values.target))) {
+                    const newId =
+                      goals.length > 0 ? goals[goals.length - 1].id + 1 : 1;
+                    addGoal(
+                      values.name as string,
+                      Number(values.target),
+                      newId,
+                      values.unit as string
+                    );
+                  }
+                }}
+                triggerButton={
+                  <button className="setup-button">Add Custom Goal</button>
+                }
+              />
+            </div>
           </div>
         </>
       ) : customGoalTarget !== 0 ? (
@@ -63,7 +68,7 @@ const CustomGoalCard = () => {
             onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
             disabled={currentIndex === 0}
           >
-            Previous Goal
+            ↑
           </button>
 
           <div className="goal-content">
@@ -118,7 +123,7 @@ const CustomGoalCard = () => {
               }
             }}
           >
-            {currentIndex === goals.length - 1 ? "Add Goal" : "Next Goal"}
+            {currentIndex === goals.length - 1 ? "+" : "↓"}
           </button>
         </>
       ) : (

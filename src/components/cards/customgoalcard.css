@@ -66,4 +66,23 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-} 
+}
+.setup-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  user-select: none;
+}
+.centered-content {
+  display: flex
+;
+  flex-direction: column;
+  align-items: center;
+}

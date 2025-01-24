@@ -6,6 +6,7 @@ import {
   useMacronutrientsStore,
   useUserProfileStore,
   useWeightStore,
+  useMicronutrientsStore,
 } from "../../store";
 import NavBar from "../navbar/NavBar";
 import "./homePage.css";
@@ -15,7 +16,7 @@ import { useSearchApi } from "../../hooks/useSearchApi";
 import { useThemeStore } from "../../store";
 import WaterCard from "../cards/watercard";
 import CalorieCard from "../cards/caloriecard";
-import MacronutrientsCard from "../cards/macronutrientscard";
+import NutrientsCard from "../cards/Nutrientscard";
 import WeightCard from "../cards/weightcard";
 import CustomGoalCard from "../cards/customgoalcard";
 import TimeTrackedChart from "../cards/timetrackedchart";
@@ -43,6 +44,18 @@ const HomePage = () => {
   const { isDarkMode } = useThemeStore();
   const { weights, targetWeight, addWeightEntry, setTargetWeight } =
     useWeightStore();
+  const {
+    increaseSugar,
+    increaseFiber,
+    increaseSodium,
+    increasePotassium,
+    increaseCholesterol,
+    sugar,
+    fiber,
+    sodium,
+    potassium,
+    cholesterol,
+  } = useMicronutrientsStore();
 
   const handleIncrease = () => {
     if (waterConsumed < waterTarget) {
@@ -56,11 +69,16 @@ const HomePage = () => {
     }
   };
 
-  const increaseMacros = (
+  const increaseNutrients = (
     calories: number,
     protein: number,
     carbs: number,
-    fats: number
+    fats: number,
+    sugar?: number,
+    fiber?: number,
+    sodium?: number,
+    potassium?: number,
+    cholesterol?: number
   ) => {
     const timestamp = new Date().toISOString();
     increaseCalorieConsumed({ value: calories, timestamp });
@@ -73,6 +91,11 @@ const HomePage = () => {
     if (fats && !isNaN(Number(fats))) {
       increaseFats({ value: fats, timestamp });
     }
+    if (sugar) increaseSugar({ value: sugar, timestamp });
+    if (fiber) increaseFiber({ value: fiber, timestamp });
+    if (sodium) increaseSodium({ value: sodium, timestamp });
+    if (potassium) increasePotassium({ value: potassium, timestamp });
+    if (cholesterol) increaseCholesterol({ value: cholesterol, timestamp });
   };
 
   const validateInput = (
@@ -111,7 +134,7 @@ const HomePage = () => {
     const fats = validateInput(prompt("Enter fats (g):"), "Fats");
     if (fats === null) return;
 
-    increaseMacros(calories, protein, carbs, fats);
+    increaseNutrients(calories, protein, carbs, fats);
     setIsCalorieDialogOpen(false);
   };
 
@@ -202,11 +225,16 @@ const HomePage = () => {
                     <div className="calorie-actions">
                       <button
                         onClick={() => {
-                          increaseMacros(
+                          increaseNutrients(
                             item.calories,
                             item.protein_g,
                             item.carbohydrates_total_g,
-                            item.fat_total_g
+                            item.fat_total_g,
+                            item.sugar_g,
+                            item.fiber_g,
+                            item.sodium_mg,
+                            item.potassium_mg,
+                            item.cholesterol_mg
                           );
                           setIsCalorieDialogOpen(false);
                         }}
@@ -260,10 +288,15 @@ const HomePage = () => {
                 calorieConsumed={calorieConsumed}
                 setIsCalorieDialogOpen={setIsCalorieDialogOpen}
               />
-              <MacronutrientsCard
+              <NutrientsCard
                 protein={protein}
                 carbohydrates={carbohydrates}
                 fats={fats}
+                sugar={sugar}
+                fiber={fiber}
+                sodium={sodium}
+                potassium={potassium}
+                cholesterol={cholesterol}
               />
             </div>
           </div>

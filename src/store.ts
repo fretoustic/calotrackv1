@@ -254,6 +254,52 @@ export const useMacronutrientsStore = create<MacronutrientsStore>((set) => ({
     })),
 }));
 
+type MicronutrientsStore = {
+  sugar: NutritionEntry[];
+  fiber: NutritionEntry[];
+  sodium: NutritionEntry[];
+  potassium: NutritionEntry[];
+  cholesterol: NutritionEntry[];
+  increaseSugar: (entry: NutritionEntry) => void;
+  increaseFiber: (entry: NutritionEntry) => void;
+  increaseSodium: (entry: NutritionEntry) => void;
+  increasePotassium: (entry: NutritionEntry) => void;
+  increaseCholesterol: (entry: NutritionEntry) => void;
+};
+
+export const useMicronutrientsStore = create<MicronutrientsStore>((set) => ({
+  sugar: [],
+  fiber: [],
+  sodium: [],
+  potassium: [],
+  cholesterol: [],
+  
+  increaseSugar: (entry: NutritionEntry) =>
+    set((state) => ({
+      sugar: [...state.sugar, entry]
+    })),
+  
+  increaseFiber: (entry: NutritionEntry) =>
+    set((state) => ({
+      fiber: [...state.fiber, entry]
+    })),
+  
+  increaseSodium: (entry: NutritionEntry) =>
+    set((state) => ({
+      sodium: [...state.sodium, entry]
+    })),
+  
+  increasePotassium: (entry: NutritionEntry) =>
+    set((state) => ({
+      potassium: [...state.potassium, entry]
+    })),
+  
+  increaseCholesterol: (entry: NutritionEntry) =>
+    set((state) => ({
+      cholesterol: [...state.cholesterol, entry]
+    })),
+}));
+
 type ThemeStore = {
   isDarkMode: boolean;
   toggleDarkMode: () => void;

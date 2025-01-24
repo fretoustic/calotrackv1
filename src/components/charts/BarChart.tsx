@@ -9,6 +9,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import "../homepage/homePage.css";
+import { useThemeStore } from "../../store";
 
 ChartJS.register(
   CategoryScale,
@@ -32,12 +33,18 @@ interface BarChartProps {
 }
 
 const BarChart: React.FC<BarChartProps> = ({ datasets, labels, title, yAxisLabel = "" }) => {
+  const { isDarkMode } = useThemeStore();
+  const textColor = isDarkMode ? '#fff' : '#000';
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top" as const,
+        labels: {
+          color: textColor,
+        },
       },
       title: {
         display: true,
@@ -46,6 +53,7 @@ const BarChart: React.FC<BarChartProps> = ({ datasets, labels, title, yAxisLabel
           size: 16,
           family: "'Arial', sans-serif",
         },
+        color: textColor,
       },
     },
     scales: {
@@ -54,6 +62,15 @@ const BarChart: React.FC<BarChartProps> = ({ datasets, labels, title, yAxisLabel
         title: {
           display: !!yAxisLabel,
           text: yAxisLabel,
+          color: textColor,
+        },
+        ticks: {
+          color: textColor,
+        },
+      },
+      x: {
+        ticks: {
+          color: textColor,
         },
       },
     },

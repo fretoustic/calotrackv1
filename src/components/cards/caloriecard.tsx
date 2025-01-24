@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useThemeStore } from "../../store";
 import PieChartCard from "../charts/Chart";
 import DialogBox from "../dialogbox/dialogBox";
 import HistoryBox from "../dialogbox/historybox";
@@ -17,11 +18,12 @@ const CalorieCard = ({
   setIsCalorieDialogOpen,
 }: CalorieCardProps) => {
   const [showHistory, setShowHistory] = useState(false);
+  const { isDarkMode } = useThemeStore();
 
   return (
-    <div className="card large-card">
+    <div className={`card large-card ${isDarkMode ? 'dark' : ''}`}>
       <div className="centered-content">
-        <h2 className="section-title">Calorie intake</h2>
+        <h2 className={`section-title ${isDarkMode ? 'text-light' : ''}`}>Calorie intake</h2>
         {calorieTarget !== 0 ? (
           <>
             <div className="chart-container">
@@ -30,17 +32,17 @@ const CalorieCard = ({
                 consumed={calorieConsumed}
                 unit="Kcal"
               />
-              <div className="calorie-stats">
+              <div className={`calorie-stats ${isDarkMode ? 'text-light' : ''}`}>
                 <p>Target: {calorieTarget} KCal</p>
                 <p>Consumed: {calorieConsumed} KCal</p>
                 <button
-                  className="add-calorie-btn"
+                  className={`add-calorie-btn ${isDarkMode ? 'dark' : ''}`}
                   onClick={() => setIsCalorieDialogOpen(true)}
                 >
                   Add Calorie Intake
                 </button>
                 <button
-                  className="history-btn"
+                  className={`history-btn ${isDarkMode ? 'dark' : ''}`}
                   onClick={() => setShowHistory(true)}
                 >
                   Show History
@@ -55,7 +57,7 @@ const CalorieCard = ({
           </>
         ) : (
           <>
-            <p>Want to set your calorie targets?</p>
+            <p className={isDarkMode ? 'text-light' : ''}>Want to set your calorie targets?</p>
             <DialogBox type="calorie" />
           </>
         )}

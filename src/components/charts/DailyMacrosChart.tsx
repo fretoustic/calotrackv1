@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useThemeStore } from "../../store";
 
 ChartJS.register(
   CategoryScale,
@@ -38,6 +39,9 @@ const DailyMacrosChart: React.FC<DailyMacrosChartProps> = ({
   carbohydrates,
   fats,
 }) => {
+  const { isDarkMode } = useThemeStore();
+  const textColor = isDarkMode ? '#fff' : '#000';
+
   const today = new Date().toISOString().split("T")[0];
 
   // Filter entries for today only
@@ -81,6 +85,7 @@ const DailyMacrosChart: React.FC<DailyMacrosChartProps> = ({
           font: {
             size: 10,
           },
+          color: textColor,
         },
       },
       title: {
@@ -98,6 +103,7 @@ const DailyMacrosChart: React.FC<DailyMacrosChartProps> = ({
           font: {
             size: 10,
           },
+          color: textColor,
         },
       },
       x: {
@@ -111,6 +117,7 @@ const DailyMacrosChart: React.FC<DailyMacrosChartProps> = ({
           },
           maxRotation: 45,
           minRotation: 45,
+          color: textColor,
         },
       },
     },

@@ -2,22 +2,27 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 import PieChartCard from "../charts/Chart";
 import DialogBox from "../dialogbox/dialogBox";
 import "../homepage/homePage.css";
+import { useThemeStore } from "../../store";
+
 interface WaterCardProps {
   waterTarget: number;
   waterConsumed: number;
   handleDecrease: () => void;
   handleIncrease: () => void;
 }
+
 const WaterCard = ({
   waterTarget,
   waterConsumed,
   handleDecrease,
   handleIncrease,
 }: WaterCardProps) => {
+  const { isDarkMode } = useThemeStore();
+  
   return (
-    <div className="card large-card">
+    <div className={`card large-card ${isDarkMode ? 'dark' : ''}`}>
       <div className="centered-content">
-        <h2 className="section-title">Water Levels</h2>
+        <h2 className={`section-title ${isDarkMode ? 'text-light' : ''}`}>Water Levels</h2>
         {waterTarget !== 0 ? (
           <div className="chart-container">
             <PieChartCard
@@ -25,7 +30,7 @@ const WaterCard = ({
               consumed={waterConsumed}
               unit="L"
             />
-            <div className="water-stats">
+            <div className={`water-stats ${isDarkMode ? 'text-light' : ''}`}>
               <div className="stat-row">
                 <p>
                   Target:{" "}
@@ -42,7 +47,7 @@ const WaterCard = ({
               <div className="water-controls">
                 <button
                   onClick={handleDecrease}
-                  className="control-btn"
+                  className={`control-btn ${isDarkMode ? 'dark' : ''}`}
                   disabled={waterConsumed < 0.25}
                 >
                   <FaMinus />
@@ -50,7 +55,7 @@ const WaterCard = ({
                 <span className="amount">0.25L</span>
                 <button
                   onClick={handleIncrease}
-                  className="control-btn"
+                  className={`control-btn ${isDarkMode ? 'dark' : ''}`}
                   disabled={waterConsumed >= waterTarget}
                 >
                   <FaPlus />
@@ -60,7 +65,7 @@ const WaterCard = ({
           </div>
         ) : (
           <>
-            <p>Want to set up your water targets?</p>
+            <p className={isDarkMode ? 'text-light' : ''}>Want to set up your water targets?</p>
             <DialogBox type="water" />
           </>
         )}

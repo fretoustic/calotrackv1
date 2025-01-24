@@ -601,3 +601,29 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+.text-light {
+  color: #fff;
+}
+
+.card.dark {
+  background-color: #2D3748;
+}
+
+.control-btn.dark,
+.add-calorie-btn.dark,
+.history-btn.dark {
+  background-color: #4A5568;
+  color: #fff;
+}
+
+.control-btn.dark:hover,
+.add-calorie-btn.dark:hover,
+.history-btn.dark:hover {
+  background-color: #2D3748;
+}
+
+.control-btn.dark:disabled {
+  background-color: #718096;
+  cursor: not-allowed;
+}

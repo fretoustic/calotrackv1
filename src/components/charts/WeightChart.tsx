@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useThemeStore } from "../../store";
 
 ChartJS.register(
   CategoryScale,
@@ -27,12 +28,18 @@ interface WeightChartProps {
 }
 
 const WeightChart: React.FC<WeightChartProps> = ({ weights }) => {
+  const { isDarkMode } = useThemeStore();
+  const textColor = isDarkMode ? '#fff' : '#000';
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
+        labels: {
+          color: textColor,
+        },
       },
       title: {
         display: false,
@@ -47,6 +54,7 @@ const WeightChart: React.FC<WeightChartProps> = ({ weights }) => {
           font: {
             size: 10,
           },
+          color: textColor,
         },
       },
       x: {
@@ -59,6 +67,7 @@ const WeightChart: React.FC<WeightChartProps> = ({ weights }) => {
           },
           maxRotation: 45,
           minRotation: 45,
+          color: textColor,
         },
       },
     },

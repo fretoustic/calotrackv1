@@ -1,7 +1,14 @@
 import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  Colors,
+} from "chart.js";
 import "../homepage/homePage.css";
 import { useThemeStore } from "../../store";
+import { blue } from "@mui/material/colors";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface Props {
@@ -12,7 +19,7 @@ interface Props {
 
 const PieChartCard = ({ target, consumed, unit }: Props) => {
   const { isDarkMode } = useThemeStore();
-  const textColor = isDarkMode ? '#fff' : '#000';
+  const textColor = isDarkMode ? "#fff" : "#000";
 
   const isComplete = consumed >= target;
   const remainingAmount = Math.max(target - consumed, 0).toFixed(2);
@@ -36,57 +43,59 @@ const PieChartCard = ({ target, consumed, unit }: Props) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: true,
-        position: "bottom" as const,
-        labels: {
-          color: textColor,
-          padding: 20,
-          usePointStyle: true,
-          pointStyle: "circle",
-          font: {
-            size: 14,
-            family: "'Arial', sans-serif",
-          },
-          generateLabels: (chart: any) => {
-            const data = chart.data;
-            if (data.labels.length && data.datasets.length) {
-              return data.labels.map((label: string, i: number) => ({
-                color: textColor,
-                text: `${label}: ${data.datasets[0].data[i]}${unit}`,
-                fillStyle: isComplete
-                  ? "#4BC0C0"
-                  : data.datasets[0].backgroundColor[i],
-                hidden: false,
-                lineCap: undefined,
-                lineDash: undefined,
-                lineDashOffset: undefined,
-                lineJoin: undefined,
-                lineWidth: undefined,
-                strokeStyle: undefined,
-                pointStyle: "circle",
-                index: i,
-              }));
-            }
-            return [];
-          },
-        },
-      },
-      tooltip: {
-        color: textColor,
-        callbacks: {
-          label: (context: any) => {
-            const label = context.label;
-            const value = context.raw;
-            return `${label}: ${value}${unit}`;
-          },
-        },
+        display: false,
       },
     },
   };
 
   return (
-    <div style={{ width: "240px", height: "240px" }}>
-      <Pie data={chartData} options={options} />
+    <div
+      style={{
+        width: "240px",
+        height: "240px",
+        display: "flex",
+        flexDirection: "column",
+        padding: "16px",
+      }}
+    >
+      <div style={{ flex: "1", minHeight: 0 }}>
+        <Pie data={chartData} options={options} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "8px",
+          marginTop: "12px",
+        }}
+      >
+        {chartData.labels.map((label: string, i: number) => (
+          <div
+            key={label}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              color: textColor,
+            }}
+          >
+            <div
+              style={{
+                width: "12px",
+                height: "12px",
+                borderRadius: "50%",
+                backgroundColor: isComplete
+                  ? "#4BC0C0"
+                  : chartData.datasets[0].backgroundColor[i],
+              }}
+            />
+            <span style={{ fontSize: "14px", fontFamily: "Arial, sans-serif" }}>
+              {`${label}: ${chartData.datasets[0].data[i]}${unit}`}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

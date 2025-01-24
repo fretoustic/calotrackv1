@@ -2,7 +2,7 @@
   background-color: var(--card-bg);
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  width: 100%;
+  width: 100vw;
   height: 90px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   backdrop-filter: blur(10px);

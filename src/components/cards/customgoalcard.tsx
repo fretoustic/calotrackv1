@@ -20,46 +20,47 @@ const CustomGoalCard = () => {
   };
 
   return (
-    <div className="card large-card">
-      <div className="centered-content">
-        {goals.length === 0 ? (
-          <>
-            <h2 className="section-title">Custom Goals</h2>
-            <div style={{ marginTop: "auto" }}>
-              <CustomDialog
-                title="Add Custom Goal"
-                fields={[
-                  { label: "Goal Name", type: "text", id: "name" },
-                  { label: "Target Amount", type: "number", id: "target" },
-                  { label: "Unit", type: "text", id: "unit" },
-                ]}
-                onSubmit={(values) => {
-                  if (values.name && !isNaN(Number(values.target))) {
-                    const newId =
-                      goals.length > 0 ? goals[goals.length - 1].id + 1 : 1;
-                    addGoal(
-                      values.name as string,
-                      Number(values.target),
-                      newId,
-                      values.unit as string
-                    );
-                  }
-                }}
-                triggerButton={
-                  <button className="add-calorie-btn">Add Custom Goal</button>
+    <div className="card large-card custom-goal-card">
+      {goals.length === 0 ? (
+        <>
+          <h2 className="section-title">Custom Goals</h2>
+          <div style={{ marginTop: "auto" }}>
+            <CustomDialog
+              title="Add Custom Goal"
+              fields={[
+                { label: "Goal Name", type: "text", id: "name" },
+                { label: "Target Amount", type: "number", id: "target" },
+                { label: "Unit", type: "text", id: "unit" },
+              ]}
+              onSubmit={(values) => {
+                if (values.name && !isNaN(Number(values.target))) {
+                  const newId =
+                    goals.length > 0 ? goals[goals.length - 1].id + 1 : 1;
+                  addGoal(
+                    values.name as string,
+                    Number(values.target),
+                    newId,
+                    values.unit as string
+                  );
                 }
-              />
-            </div>
-          </>
-        ) : customGoalTarget !== 0 ? (
-          <>
-            <button
-              className="nav-button top"
-              onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
-              disabled={currentIndex === 0}
-            >
-              ↑
-            </button>
+              }}
+              triggerButton={
+                <button className="add-calorie-btn">Add Custom Goal</button>
+              }
+            />
+          </div>
+        </>
+      ) : customGoalTarget !== 0 ? (
+        <>
+          <button
+            className="nav-button top"
+            onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+            disabled={currentIndex === 0}
+          >
+            Previous Goal
+          </button>
+
+          <div className="goal-content">
             <h2 className="section-title">{customGoal} Target</h2>
             <div className="chart-container">
               <PieChartCard
@@ -89,40 +90,39 @@ const CustomGoalCard = () => {
                 </button>
               </div>
             </div>
-            <button
-              className="nav-button bottom"
-              onClick={() => {
-                if (currentIndex === goals.length - 1) {
-                  if (window.confirm("Do you want to add a new custom goal?")) {
-                    const name = prompt("Enter new goal name:");
-                    const target = prompt("Enter target amount:");
-                    const unit = prompt(`Enter unit of ${name}:`);
-                    if (name && target && !isNaN(Number(target)) && unit) {
-                      const newId =
-                        goals.length > 0 ? goals[goals.length - 1].id + 1 : 1;
-                      addGoal(name, Number(target), newId, unit);
-                      setCurrentIndex(goals.length);
-                    }
+          </div>
+
+          <button
+            className="nav-button bottom"
+            onClick={() => {
+              if (currentIndex === goals.length - 1) {
+                if (window.confirm("Do you want to add a new custom goal?")) {
+                  const name = prompt("Enter new goal name:");
+                  const target = prompt("Enter target amount:");
+                  const unit = prompt(`Enter unit of ${name}:`);
+                  if (name && target && !isNaN(Number(target)) && unit) {
+                    const newId =
+                      goals.length > 0 ? goals[goals.length - 1].id + 1 : 1;
+                    addGoal(name, Number(target), newId, unit);
+                    setCurrentIndex(goals.length);
                   }
-                } else {
-                  setCurrentIndex((prev) =>
-                    Math.min(goals.length - 1, prev + 1)
-                  );
                 }
-              }}
-            >
-              ↓
-            </button>
-          </>
-        ) : (
-          <>
-            <h2 className="section-title">{customGoal} Target not set</h2>
-            <button className="add-custom-btn" onClick={handleSetTarget}>
-              Set {customGoal} Target
-            </button>
-          </>
-        )}
-      </div>
+              } else {
+                setCurrentIndex((prev) => Math.min(goals.length - 1, prev + 1));
+              }
+            }}
+          >
+            {currentIndex === goals.length - 1 ? "Add Goal" : "Next Goal"}
+          </button>
+        </>
+      ) : (
+        <>
+          <h2 className="section-title">{customGoal} Target not set</h2>
+          <button className="add-custom-btn" onClick={handleSetTarget}>
+            Set {customGoal} Target
+          </button>
+        </>
+      )}
     </div>
   );
 };

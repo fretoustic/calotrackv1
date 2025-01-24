@@ -81,25 +81,45 @@ export const useCalorieTargetStore = create<calorieTargetStore>((set) => ({
 
 type calorieConsumedStore = {
   calorieConsumed: number;
+  calorieHistory: NutritionEntry[];
   setcalorieConsumed: (newcalorieConsumed: number) => void;
   increaseCalorieConsumed: (entry: NutritionEntry) => void;
   decreaseCalorieConsumed: (amount: number) => void;
+  addToCalorieHistory: (entry: NutritionEntry) => void;
+  deleteFromCalorieHistory: (timestamp: string) => void;
 };
 
 export const useCalorieConsumedStore = create<calorieConsumedStore>((set) => ({
   calorieConsumed: 0,
+  calorieHistory: [],
   setcalorieConsumed: (newcalorieConsumed: number) => {
     set(() => ({ calorieConsumed: Number(newcalorieConsumed.toFixed(1)) }));
   },
   increaseCalorieConsumed: (entry: NutritionEntry) => {
     set((state) => ({ 
-      calorieConsumed: Number((state.calorieConsumed + entry.value).toFixed(1)) 
+      calorieConsumed: Number((state.calorieConsumed + entry.value).toFixed(1)),
+      calorieHistory: [...state.calorieHistory, entry]
     }));
   },
   decreaseCalorieConsumed: (amount: number) => {
     set((state) => ({ 
       calorieConsumed: Number((state.calorieConsumed - amount).toFixed(1)) 
     }));
+  },
+  addToCalorieHistory: (entry: NutritionEntry) => {
+    set((state) => ({
+      calorieHistory: [...state.calorieHistory, entry]
+    }));
+  },
+  deleteFromCalorieHistory: (timestamp: string) => {
+    set((state) => {
+      const entry = state.calorieHistory.find(e => e.timestamp === timestamp);
+      const newHistory = state.calorieHistory.filter(e => e.timestamp !== timestamp);
+      return {
+        calorieHistory: newHistory,
+        calorieConsumed: entry ? Number((state.calorieConsumed - entry.value).toFixed(1)) : state.calorieConsumed
+      };
+    });
   },
 }));
 
@@ -167,6 +187,9 @@ type MacronutrientsStore = {
   increaseProtein: (entry: NutritionEntry) => void;
   increaseCarbohydrates: (entry: NutritionEntry) => void;
   increaseFats: (entry: NutritionEntry) => void;
+  deleteProtein: (timestamp: string) => void;
+  deleteCarbohydrates: (timestamp: string) => void;
+  deleteFats: (timestamp: string) => void;
 };
 
 export const useMacronutrientsStore = create<MacronutrientsStore>((set) => ({
@@ -213,6 +236,21 @@ export const useMacronutrientsStore = create<MacronutrientsStore>((set) => ({
   increaseFats: (entry: NutritionEntry) =>
     set((state) => ({
       fats: [...state.fats, entry]
+    })),
+
+  deleteProtein: (timestamp: string) =>
+    set((state) => ({
+      protein: state.protein.filter(entry => entry.timestamp !== timestamp)
+    })),
+  
+  deleteCarbohydrates: (timestamp: string) =>
+    set((state) => ({
+      carbohydrates: state.carbohydrates.filter(entry => entry.timestamp !== timestamp)
+    })),
+  
+  deleteFats: (timestamp: string) =>
+    set((state) => ({
+      fats: state.fats.filter(entry => entry.timestamp !== timestamp)
     })),
 }));
 

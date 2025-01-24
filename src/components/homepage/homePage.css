@@ -23,8 +23,8 @@
 .home-container {
   display: grid;
   grid-template-areas: 'nav' 'main';
-  background-attachment: fixed; /* This keeps the background fixed while scrolling */
-  transition: background-image 0.3s ease; /* Smooth transition between images */
+  background-attachment: fixed;
+  transition: background-image 0.3s ease;
   min-height: 100vh;
   width: 100%;
   background-size: cover;
@@ -34,7 +34,6 @@
   position: relative;
 }
 
-/* Add before pseudo-element for background overlay */
 .home-container::before {
   content: '';
   position: fixed;
@@ -53,7 +52,7 @@
 }
 
 .main-section {
-  padding: 15px;  /* Reduced from 30px */
+  padding: 15px; 
 }
 .content-wrapper {
   display: flex;
@@ -239,16 +238,16 @@
 }
 
 .calorie-stats button.control-btn {
-  background-color: #ff9933;  /* Orange button color */
+  background-color: #ff9933;  
   color: white;
 }
 
 .calorie-stats button.control-btn:hover:not(:disabled) {
-  background-color: #ff8000;  /* Darker orange on hover */
+  background-color: #ff8000; 
 }
 
 .calorie-stats button.control-btn:disabled {
-  background-color: #ffcc99;  /* Light orange when disabled */
+  background-color: #ffcc99;  
 }
 
 .calorie-dialog {
@@ -383,13 +382,13 @@
   font-size: 0.975rem;
 }
 
-/* Add glass morphism effect for cards in dark mode */
+
 [data-theme='dark'] .card {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
 }
 
-/* Scrollbar styling */
+
 .search-results::-webkit-scrollbar {
   width: 8px;
 }
@@ -414,18 +413,15 @@
   margin: 1rem 0;
 }
 
-/* Ensure dialog backdrop covers everything */
 .calorie-dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
 }
 
-/* Add overflow only for content inside the card, not dialogs */
 .card-content {
   overflow: hidden;
 }
 
-/* Animation for dialog opening */
 @keyframes dialogSlideIn {
   from {
     opacity: 0;
@@ -474,10 +470,9 @@
   transform: translateY(-1px);
 }
 
-/* Mobile styles - Apply when screen width is 768px or less */
 @media screen and (max-width: 768px) {
   .home-container {
-    background-attachment: scroll; /* Change to scroll for better mobile performance */
+    background-attachment: scroll; 
   }
 
   .main-section {
@@ -514,7 +509,6 @@
   }
 }
 
-/* Additional breakpoint for very small devices */
 @media screen and (max-width: 480px) {
   .cards-row {
     width: 87vw;
@@ -532,7 +526,7 @@
   .card {
     width: 86vw;
     padding: 1.25rem;
-    border-radius: 16px; /* Slightly reduced border radius */
+    border-radius: 16px;
     margin-bottom: 10px;
   }
 

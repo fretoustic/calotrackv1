@@ -1,7 +1,7 @@
 import { useState } from "react";
-import PieChartCard from "../charts/Chart";
-import DialogBox from "../dialogbox/dialogBox";
-import HistoryBox from "../dialogbox/historybox";
+import PieChartCard from "../../charts/Chart";
+import DialogBox from "../../dialogbox/dialogBox/dialogBox";
+import HistoryBox from "../../dialogbox/historybox";
 import "../homepage/homePage.css";
 import "./caloriecard.css";
 

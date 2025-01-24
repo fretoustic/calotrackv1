@@ -1,6 +1,6 @@
 import { FaMinus, FaPlus } from "react-icons/fa";
 import PieChartCard from "../charts/Chart";
-import DialogBox from "../dialogbox/dialogBox";
+import DialogBox from "../dialogbox/dialogBox/dialogBox";
 import "../homepage/homePage.css";
 interface WaterCardProps {
   waterTarget: number;

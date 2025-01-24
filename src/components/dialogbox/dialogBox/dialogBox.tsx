@@ -4,9 +4,9 @@ import {
   useCalorieTargetStore,
   useWaterTargetStore,
   useUserProfileStore,
-} from "../../store";
-import { WaterBox } from "./waterbox";
-import CalorieBox from "./caloriebox";
+} from "../../../store";
+import { WaterBox } from "../waterbox";
+import CalorieBox from "../caloriebox";
 
 interface DialogBoxProps {
   type?: string;

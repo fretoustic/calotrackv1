@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const { weightKg, heightCm, name ,setWeightKg } = useUserProfileStore();
+  const { weightKg, heightCm, name, setWeightKg } = useUserProfileStore();
   const { waterTarget } = useWaterTargetStore();
   const { waterConsumed, increaseConsumed, decreaseConsumed } =
     useWaterConsumedStore();
@@ -55,7 +55,12 @@ const HomePage = () => {
     }
   };
 
-  const increaseMacros = (calories: number, protein: number, carbs: number, fats: number) => {
+  const increaseMacros = (
+    calories: number,
+    protein: number,
+    carbs: number,
+    fats: number
+  ) => {
     const timestamp = new Date().toISOString();
     increaseCalorieConsumed({ value: calories, timestamp });
     if (protein && !isNaN(Number(protein))) {
@@ -69,8 +74,11 @@ const HomePage = () => {
     }
   };
 
-  const validateInput = (value: string | null, fieldName: string): number | null => {
-    if (!value || value.trim() === '') {
+  const validateInput = (
+    value: string | null,
+    fieldName: string
+  ): number | null => {
+    if (!value || value.trim() === "") {
       alert(`${fieldName} is required`);
       return null;
     }
@@ -93,7 +101,10 @@ const HomePage = () => {
     const protein = validateInput(prompt("Enter protein (g):"), "Protein");
     if (protein === null) return;
 
-    const carbs = validateInput(prompt("Enter carbohydrates (g):"), "Carbohydrates");
+    const carbs = validateInput(
+      prompt("Enter carbohydrates (g):"),
+      "Carbohydrates"
+    );
     if (carbs === null) return;
 
     const fats = validateInput(prompt("Enter fats (g):"), "Fats");
@@ -140,8 +151,8 @@ const HomePage = () => {
       style={{
         backgroundColor: isDarkMode ? "#1A202C" : "#f8fafc",
         backgroundImage: isDarkMode
-          ? 'url("src/assets/dark_background.png")'
-          : 'url("src/assets/backdrop.png")',
+          ? 'url("../../assets/dark_background.png")'
+          : 'url("../../assets/backdrop.png")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -202,10 +213,7 @@ const HomePage = () => {
                       >
                         Add this?
                       </button>
-                      <button
-                        onClick={handleManualEntry}
-                        className="add-btn"
-                      >
+                      <button onClick={handleManualEntry} className="add-btn">
                         Add Entry Manually
                       </button>
                     </div>
@@ -215,10 +223,7 @@ const HomePage = () => {
             ) : (
               <div className="no-results">
                 <p>No results found.</p>
-                <button
-                  onClick={handleManualEntry}
-                  className="manual-btn"
-                >
+                <button onClick={handleManualEntry} className="manual-btn">
                   Add Entry Manually
                 </button>
               </div>

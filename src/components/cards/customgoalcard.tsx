@@ -24,7 +24,13 @@ const CustomGoalCard = () => {
       {goals.length === 0 ? (
         <>
           <h2 className="section-title">Custom Goals</h2>
-          <div style={{ marginTop: "auto" }}>
+          <div
+            style={{
+              marginTop: "auto",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <CustomDialog
               title="Add Custom Goal"
               fields={[

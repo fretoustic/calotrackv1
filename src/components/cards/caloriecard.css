@@ -59,9 +59,6 @@
   border-bottom: 1px solid #eee;
 }
 
-.history-item:last-child {
-  border-bottom: none;
-}
 
 .delete-btn {
   background-color: #ff4444;

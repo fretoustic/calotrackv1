@@ -31,6 +31,11 @@ const WeightCard = ({
           {targetWeight > 0 ? (
             <>
               <p style={{ margin: 0 }}>Target Weight: {targetWeight} kg</p>
+              {weights.length > 0 && (
+                <div style={{ width: "100%", height: "200px" }}>
+                  <WeightChart weights={weights} />
+                </div>
+              )}
               <button
                 style={{
                   padding: "8px 16px",
@@ -57,63 +62,65 @@ const WeightCard = ({
               </button>
             </>
           ) : (
-            <div
-              style={{
-                display: "flex",
-                gap: "10px",
-                justifyContent: "center",
-              }}
-            >
-              <button
+            <>
+              {weights.length > 0 && (
+                <div style={{ width: "100%", height: "200px" }}>
+                  <WeightChart weights={weights} />
+                </div>
+              )}
+              <div
                 style={{
-                  padding: "8px 16px",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  border: "none",
-                  borderRadius: "8px",
-                  backgroundColor: "var(--button-primary-bg)",
-                  color: "var(--button-primary-text)",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  const target = prompt("Enter your target weight (kg):");
-                  if (target && !isNaN(Number(target))) {
-                    setTargetWeight(Number(target));
-                  }
+                  display: "flex",
+                  gap: "10px",
+                  justifyContent: "center",
                 }}
               >
-                Set Target Weight
-              </button>
-              <button
-                style={{
-                  padding: "8px 16px",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  border: "none",
-                  borderRadius: "8px",
-                  backgroundColor: "var(--button-primary-bg)",
-                  color: "var(--button-primary-text)",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  const newWeight = prompt("Enter your current weight (kg):");
-                  if (newWeight && !isNaN(Number(newWeight))) {
-                    setWeightKg(Number(newWeight));
-                    addWeightEntry({
-                      value: Number(newWeight),
-                      timestamp: new Date().toISOString(),
-                    });
-                  }
-                }}
-              >
-                Enter Weight Entry
-              </button>
-            </div>
-          )}
-          {weights.length > 0 && (
-            <div style={{ width: "100%", height: "200px" }}>
-              <WeightChart weights={weights} />
-            </div>
+                <button
+                  style={{
+                    padding: "8px 16px",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    border: "none",
+                    borderRadius: "8px",
+                    backgroundColor: "var(--button-primary-bg)",
+                    color: "var(--button-primary-text)",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    const target = prompt("Enter your target weight (kg):");
+                    if (target && !isNaN(Number(target))) {
+                      setTargetWeight(Number(target));
+                    }
+                  }}
+                >
+                  Set Target Weight
+                </button>
+                <button
+                  style={{
+                    padding: "8px 16px",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    border: "none",
+                    borderRadius: "8px",
+                    backgroundColor: "var(--button-primary-bg)",
+                    color: "var(--button-primary-text)",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    const newWeight = prompt("Enter your current weight (kg):");
+                    if (newWeight && !isNaN(Number(newWeight))) {
+                      setWeightKg(Number(newWeight));
+                      addWeightEntry({
+                        value: Number(newWeight),
+                        timestamp: new Date().toISOString(),
+                      });
+                    }
+                  }}
+                >
+                  Enter Weight Entry
+                </button>
+              </div>
+            </>
           )}
         </div>
       </div>

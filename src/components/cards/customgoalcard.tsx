@@ -71,7 +71,7 @@ const CustomGoalCard = () => {
             ↑
           </button>
 
-          <div className="goal-content">
+          <div className="goal-content" style={{ marginBottom:"30px", marginTop:"20px" }}>
             <h2 className="section-title">{customGoal} Target</h2>
             <div className="chart-container">
               <PieChartCard

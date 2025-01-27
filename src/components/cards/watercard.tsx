@@ -22,7 +22,10 @@ const WaterCard = ({
   return (
     <div className={`card large-card ${isDarkMode ? "dark" : ""}`}>
       <div className="centered-content">
-        <h2 className={`section-title ${isDarkMode ? "text-light" : ""}`}>
+        <h2
+          className={`section-title ${isDarkMode ? "text-light" : ""}`}
+          style={{ marginTop: "3px" }}
+        >
           Water Levels
         </h2>
         {waterTarget !== 0 ? (
@@ -42,10 +45,10 @@ const WaterCard = ({
                   <span className="stat-value">{waterConsumed} L</span>
                 </p>
               </div>
-              <p className="stat-prompt">
+              <p className="stat-prompt" style={{ marginTop: "1px" }}>
                 Consumed some water? Let us know how much!
               </p>
-              <div className="water-controls">
+              <div className="water-controls" style={{ marginTop: "1px" }}>
                 <button
                   onClick={handleDecrease}
                   className={`control-btn ${isDarkMode ? "dark" : ""}`}

@@ -1,14 +1,7 @@
 import { Pie } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  Colors,
-} from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "../homepage/homePage.css";
 import { useThemeStore } from "../../store";
-import { blue } from "@mui/material/colors";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface Props {

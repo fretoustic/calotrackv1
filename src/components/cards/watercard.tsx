@@ -18,11 +18,13 @@ const WaterCard = ({
   handleIncrease,
 }: WaterCardProps) => {
   const { isDarkMode } = useThemeStore();
-  
+
   return (
-    <div className={`card large-card ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`card large-card ${isDarkMode ? "dark" : ""}`}>
       <div className="centered-content">
-        <h2 className={`section-title ${isDarkMode ? 'text-light' : ''}`}>Water Levels</h2>
+        <h2 className={`section-title ${isDarkMode ? "text-light" : ""}`}>
+          Water Levels
+        </h2>
         {waterTarget !== 0 ? (
           <div className="chart-container">
             <PieChartCard
@@ -30,15 +32,14 @@ const WaterCard = ({
               consumed={waterConsumed}
               unit="L"
             />
-            <div className={`water-stats ${isDarkMode ? 'text-light' : ''}`}>
+            <div className={`water-stats ${isDarkMode ? "text-light" : ""}`}>
               <div className="stat-row">
                 <p>
-                  Target:{" "}
-                  <span className="stat-value">{waterTarget} Litres</span>
+                  Target: <span className="stat-value">{waterTarget} L</span>
                 </p>
                 <p>
                   Consumed:{" "}
-                  <span className="stat-value">{waterConsumed} Litres</span>
+                  <span className="stat-value">{waterConsumed} L</span>
                 </p>
               </div>
               <p className="stat-prompt">
@@ -47,7 +48,7 @@ const WaterCard = ({
               <div className="water-controls">
                 <button
                   onClick={handleDecrease}
-                  className={`control-btn ${isDarkMode ? 'dark' : ''}`}
+                  className={`control-btn ${isDarkMode ? "dark" : ""}`}
                   disabled={waterConsumed < 0.25}
                 >
                   <FaMinus />
@@ -55,7 +56,7 @@ const WaterCard = ({
                 <span className="amount">0.25L</span>
                 <button
                   onClick={handleIncrease}
-                  className={`control-btn ${isDarkMode ? 'dark' : ''}`}
+                  className={`control-btn ${isDarkMode ? "dark" : ""}`}
                   disabled={waterConsumed >= waterTarget}
                 >
                   <FaPlus />
@@ -65,7 +66,9 @@ const WaterCard = ({
           </div>
         ) : (
           <>
-            <p className={isDarkMode ? 'text-light' : ''}>Want to set up your water targets?</p>
+            <p className={isDarkMode ? "text-light" : ""}>
+              Want to set up your water targets?
+            </p>
             <DialogBox type="water" />
           </>
         )}

@@ -14,7 +14,7 @@ const SignUp = () => {
         <h2 className="subtitle">A simplistic calorie tracker.</h2>
       </div>
       <div>
-        <div className="but" onClick={() => navigate("/signup2")}>
+        <div className="button" onClick={() => navigate("/signup2")}>
           Sign Up
         </div>
       </div>

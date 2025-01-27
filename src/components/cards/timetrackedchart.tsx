@@ -13,7 +13,7 @@ const TimeTrackedChart = ({
 }: TimeTrackedChartProps) => {
   return (
     <div className="card large-card">
-      <div className="centered-content">
+      <div className="centered-content" style={{width: "90%", height: "90%"}}>
         <h2 className="section-title">Daily Macronutrient Progress</h2>
         <DailyMacrosChart
           protein={protein}

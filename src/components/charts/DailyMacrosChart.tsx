@@ -156,7 +156,7 @@ const DailyMacrosChart: React.FC<DailyMacrosChartProps> = ({
   };
 
   return (
-    <div style={{ height: "200px", width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <Line options={options} data={data} />
     </div>
   );

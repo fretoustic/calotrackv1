@@ -32,7 +32,7 @@ const WeightCard = ({
             <>
               <p style={{ margin: 0 }}>Target Weight: {targetWeight} kg</p>
               {weights.length > 0 && (
-                <div style={{ width: "100%", height: "200px" }}>
+                <div style={{ width: "100%", height: "160px" }}>
                   <WeightChart weights={weights} />
                 </div>
               )}
@@ -64,7 +64,7 @@ const WeightCard = ({
           ) : (
             <>
               {weights.length > 0 && (
-                <div style={{ width: "100%", height: "200px" }}>
+                <div style={{ width: "100%", height: "160px" }}>
                   <WeightChart weights={weights} />
                 </div>
               )}

@@ -78,7 +78,7 @@
   border: 1px solid rgba(99, 102, 241, 0.08);
   backdrop-filter: blur(8px);
   position: relative;
-  padding: 24px 20px;
+  padding: 10px 15px;
 }
 
 .card:hover {
@@ -101,6 +101,7 @@
 
 .small-card {
   width: 300px;
+  padding :20px;
 }
 
 .with-padding {
@@ -120,9 +121,10 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  margin-bottom: 2rem;
   text-align: center;
   letter-spacing: -0.025em;
+  margin-bottom: 3px;
+  margin-top: 3px;
 }
 
 .bottom-row {
@@ -374,7 +376,6 @@
 .stat-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
   padding: 0.75rem;
   background: rgba(99, 102, 241, 0.04);
   border-radius: 12px;

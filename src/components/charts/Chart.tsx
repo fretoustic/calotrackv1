@@ -48,7 +48,7 @@ const PieChartCard = ({ target, consumed, unit }: Props) => {
         height: "240px",
         display: "flex",
         flexDirection: "column",
-        padding: "16px",
+        padding: "10px",
       }}
     >
       <div style={{ flex: "1", minHeight: 0 }}>

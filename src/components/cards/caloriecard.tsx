@@ -33,8 +33,8 @@ const CalorieCard = ({
                 unit="Kcal"
               />
               <div className={`calorie-stats ${isDarkMode ? 'text-light' : ''}`}>
-                <p>Target: {calorieTarget} KCal</p>
-                <p>Consumed: {calorieConsumed} KCal</p>
+                <p style={{margin:"5px"}}>Target: {calorieTarget} KCal</p>
+                <p style={{margin:"5px"}}>Consumed: {calorieConsumed} KCal</p>
                 <button
                   className={`add-calorie-btn ${isDarkMode ? 'dark' : ''}`}
                   onClick={() => setIsCalorieDialogOpen(true)}

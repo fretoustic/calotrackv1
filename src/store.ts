@@ -3,9 +3,11 @@ import { create } from "zustand";
 type UserProfileStore = {
   name: string;
   email: string;
+  password: string;
   weightKg: number;
   heightCm: number;
   setName: (newName: string) => void;
+  setPassword: (newPassword: string) => void;
   setEmail: (newEmail: string) => void;
   setWeightKg: (newWeight: number) => void;
   setHeightCm: (newHeight: number) => void;
@@ -14,10 +16,14 @@ type UserProfileStore = {
 export const useUserProfileStore = create<UserProfileStore>((set) => ({
   name: '',
   email: '',
+  password : '',
   weightKg: 0,
   heightCm: 0,
   setName: (newName: string) => {
     set(() => ({ name: newName }));
+  },
+  setPassword: (newPassword: string) => {
+    set(() => ({ password: newPassword }));
   },
   setEmail: (newEmail: string) => {
     set(() => ({ email: newEmail }));
@@ -320,6 +326,7 @@ type WeightStore = {
   targetWeight: number;
   setTargetWeight: (newTarget: number) => void;
   addWeightEntry: (entry: WeightEntry) => void;
+  setWeights: (newWeights: WeightEntry[]) => void;
 };
 
 export const useWeightStore = create<WeightStore>((set) => ({
@@ -334,4 +341,7 @@ export const useWeightStore = create<WeightStore>((set) => ({
     set((state) => ({
       weights: [...state.weights, entry]
     })),
+    setWeights: (newWeights: WeightEntry[]) =>  
+    set(() => ({ weights: newWeights })),
+    
 }));

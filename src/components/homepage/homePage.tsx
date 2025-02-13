@@ -23,15 +23,18 @@ import TimeTrackedChart from "../cards/timetrackedchart";
 import { useNavigate } from "react-router-dom";
 import background from "../../assets/backdrop.png";
 import darkBackground from "../../assets/dark_background.png";
+import { syncDataToServer, loadDataFromServer } from "../../services/api/syncData";
+import { useCustomGoalsStore } from "../../store";
+
 const HomePage = () => {
   const navigate = useNavigate();
-  const { weightKg, heightCm, name, setWeightKg } = useUserProfileStore();
-  const { waterTarget } = useWaterTargetStore();
-  const { waterConsumed, increaseConsumed, decreaseConsumed } =
+  const {email,weightKg, heightCm, name, setWeightKg } = useUserProfileStore();
+  const { waterTarget, setWaterTarget } = useWaterTargetStore();
+  const { waterConsumed, increaseConsumed, decreaseConsumed, setWaterConsumed } =
     useWaterConsumedStore();
 
-  const { calorieTarget } = useCalorieTargetStore();
-  const { calorieConsumed, increaseCalorieConsumed } =
+  const { calorieTarget, setCalorieTarget } = useCalorieTargetStore();
+  const { calorieConsumed, increaseCalorieConsumed, setcalorieConsumed } =
     useCalorieConsumedStore();
   const {
     protein,
@@ -42,8 +45,9 @@ const HomePage = () => {
     increaseFats,
   } = useMacronutrientsStore();
   const { isDarkMode } = useThemeStore();
-  const { weights, targetWeight, addWeightEntry, setTargetWeight } =
+  const { weights, targetWeight, setWeights,addWeightEntry, setTargetWeight } =
     useWeightStore();
+    const {goals} = useCustomGoalsStore();
   const {
     increaseSugar,
     increaseFiber,
@@ -164,10 +168,61 @@ const HomePage = () => {
   }, [isDarkMode]);
 
   useEffect(() => {
-    if (!weightKg || !heightCm || !name) {
-      navigate("/signup2");
+    if ( !email) {
+      navigate("/");
     }
   }, [weightKg, heightCm, name, navigate]);
+
+  // Load data when component mounts
+  useEffect(() => {
+    const loadData = async () => {
+      const data = await loadDataFromServer();
+      if (data) {
+        // Update all stores with loaded data
+        data.goals.forEach((goal: any) => {
+          if (goal.goalName === "water") {
+            setWaterTarget(goal.goalValue);
+            setWaterConsumed(goal.progressValue);
+          } else if (goal.goalName === "calories") {
+            setCalorieTarget(goal.goalValue);
+            setcalorieConsumed(goal.progressValue);}
+           else if (goal.goalName === "weight") {
+            setTargetWeight(goal.goalValue);
+            if (goal.entries) {
+              setWeights(goal.entries);
+            }
+           }
+           else{
+            goals.push(goal);
+           }
+        });
+      }
+    };
+    loadData();
+  }, []);
+
+  // Save data when component unmounts or window closes
+  useEffect(() => {
+    const handleUnload = async () => {
+      await syncDataToServer({
+        waterTarget,
+        waterConsumed,
+        calorieTarget,
+        calorieConsumed,
+        protein,
+        carbohydrates,
+        fats,
+        customGoals: goals,
+        targetWeight,
+        weights
+      });
+    };
+    window.addEventListener('beforeunload', handleUnload);
+    return () => {
+      handleUnload();
+      window.removeEventListener('beforeunload', handleUnload);
+    };
+  }, [waterTarget, waterConsumed, calorieTarget, calorieConsumed, protein, carbohydrates, fats, goals, targetWeight, weights]);
 
   return (
     <div

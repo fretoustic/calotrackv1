@@ -3,26 +3,23 @@ import "./signup.css";
 import image from "../../assets/backdrop.png";
 import { useState } from "react";
 import { useUserProfileStore, useWeightStore } from "../../store";
-import { signin, signup } from "../../apiCalls/signupCall";
+
 interface Props {
   signUpIndex: number;
 }
 const SignUp = ({ signUpIndex }: Props) => {
   const navigate = useNavigate();
   const { name, email, setName, setEmail } = useUserProfileStore();
-  const [errors, setErrors] = useState({ name: false, email: false, password: false });
-  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({ name: false, email: false });
   const validateAndNavigate = () => {
     const newErrors = {
       name: !name || name.trim() === "",
       email: !email || !email.includes("@") || email.trim() === "",
-      password: !password || password.trim() === "",
     };
 
     setErrors(newErrors);
 
-    if (!newErrors.name && !newErrors.email && !newErrors.password) {
-      signup(email, password);
+    if (!newErrors.name && !newErrors.email) {
       navigate("/signup3");
     }
   };
@@ -57,54 +54,8 @@ const SignUp = ({ signUpIndex }: Props) => {
           <h2 className="subtitle">A simplistic calorie tracker.</h2>
         </div>
         <div>
-          <div className="form-group" style={{ marginBottom: '20px' }}>
-            <label>Email</label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className={`input-field ${errors.email ? "error" : ""}`}
-              value={email || ""}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {errors.email && (
-              <div className="error-message">Valid email is required</div>
-            )}
-          </div>
-          <div className="form-group" style={{ marginBottom: '20px' }}>
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className={`input-field ${errors.password ? "error" : ""}`}
-              value={password || ""}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {errors.password && (
-              <div className="error-message">Password is required</div>
-            )}
-          </div>
-          <div className="button-container" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '15px',
-            marginTop: '20px'
-          }}>
-            <div className="button" onClick={() => {
-              signin(email, password)
-              .then(response => {
-                console.log('Status:', response.status);
-                console.log('Data:', response.data);
-                navigate("/homepage");
-              })
-              .catch(error => {
-                console.error('Error:', error.message);
-              });
-            }}>
-              Sign in
-            </div>
-            <div className="button" onClick={() => navigate("/signup2")}>
-              Sign Up
-            </div>
+          <div className="button" onClick={() => navigate("/signup2")}>
+            Sign Up
           </div>
         </div>
       </div>
@@ -144,20 +95,6 @@ const SignUp = ({ signUpIndex }: Props) => {
               />
               {errors.email && (
                 <div className="error-message">Valid email is required</div>
-              )}
-            </div>
-            
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                className={`input-field ${errors.password ? "error" : ""}`}
-                value={password || ""}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {errors.password && (
-                <div className="error-message">Password is required</div>
               )}
             </div>
 
